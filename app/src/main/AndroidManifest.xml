@@ -26,6 +26,12 @@
         </activity>
 
         <activity android:name=".ui.WelcomeActivity" android:theme="@style/Theme.IOSched.Welcome" />
+
+        <provider
+            android:authorities="@string/content_authority"
+            android:name=".provider.RouteProvider"
+            android:exported="false"
+            android:syncable="true" />
     </application>
 
 </manifest>

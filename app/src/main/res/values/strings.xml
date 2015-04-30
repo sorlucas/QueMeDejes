@@ -14,6 +14,10 @@
   limitations under the License.
   -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- Provider and SyncAdapter -->
+    <string name="sync_account_type">sergio.example.com</string>
+    <string name="content_authority">com.example.sergio.quemedejes</string>
+
     <!-- Shown in the schedule to indicate how many sessions are available on that particular time slot. -->
     <plurals name="schedule_block_subtitle">
         <item quantity="one"><xliff:g id="number_of_sessions">%1$d</xliff:g> available session</item>
