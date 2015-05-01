@@ -48,6 +48,7 @@ import android.widget.Toast;
 import com.example.sergio.quemedejes.BuildConfig;
 import com.example.sergio.quemedejes.Config;
 import com.example.sergio.quemedejes.R;
+import com.example.sergio.quemedejes.sync.QuemedejesSyncAdapter;
 import com.example.sergio.quemedejes.ui.widget.MultiSwipeRefreshLayout;
 import com.example.sergio.quemedejes.ui.widget.ScrimInsetsScrollView;
 import com.example.sergio.quemedejes.util.AccountUtils;
@@ -228,6 +229,8 @@ public abstract class BaseActivity extends ActionBarActivity implements
         mLUtils = LUtils.getInstance(this);
         mThemedStatusBarColor = getResources().getColor(R.color.theme_primary_dark);
         mNormalStatusBarColor = mThemedStatusBarColor;
+
+        QuemedejesSyncAdapter.initializeSyncAdapter(this);
     }
 
     private void trySetupSwipeRefresh() {

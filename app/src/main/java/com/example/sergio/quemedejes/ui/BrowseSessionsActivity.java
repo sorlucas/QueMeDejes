@@ -96,6 +96,8 @@ public class BrowseSessionsActivity extends BaseActivity  {
         mButterBar = findViewById(R.id.butter_bar);
         mDrawShadowFrameLayout = (DrawShadowFrameLayout) findViewById(R.id.main_content);
         registerHideableHeaderView(mButterBar);
+
+        //QuemedejesSyncAdapter.syncImmediately(getApplicationContext());
     }
 
     @Override
