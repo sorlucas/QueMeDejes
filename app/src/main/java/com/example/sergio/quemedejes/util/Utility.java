@@ -23,13 +23,13 @@ public class Utility {
      * Helper method to provide the icon resource id according to the route condition id returned
      */
     public static int getIconResourceForRouteCondition(String routeId) {
-        if (routeId == "low") {
+        if (routeId.contains("low")) {
             return R.drawable.ic_low_route;
-        } else if (routeId == "medium") {
+        } else if (routeId.contains("medium")) {
             return R.drawable.ic_medium_route;
-        } else if (routeId == "high") {
+        } else if (routeId.contains("high")) {
             return R.drawable.ic_high_route;
-        } 
+        }
         return -1;
     }
 

@@ -16,11 +16,46 @@
         <dex dex="/home/sergio/Android/studioProjects/github/QueMeDejes/app/build/intermediates/pre-dexed/debug/classes-19d5363ac1a6552eb02d0b7c27ba93a53d3eccd8.jar" />
     </item>
     <item
+        jar="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appstate/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="7ff613bf78ab057293892fdbd4169eda899c89b9">
+        <dex dex="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/pre-dexed/debug/classes-928f043b4ee29e366d4a8fbe8ca0ba1e08f0c01b.jar" />
+    </item>
+    <item
+        jar="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-gcm/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="9224bc4c54ba95147c7eabd874573763c07cb6be">
+        <dex dex="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/pre-dexed/debug/classes-a2cb93d82b15a459bfe9a50bd35da800b261127f.jar" />
+    </item>
+    <item
         jar="/home/sergio/.gradle/caches/modules-2/files-2.1/com.github.japgolly.android/svg-android/2.0.6/9b54af90b1718548570f6c6c44d8daad9e286dfd/svg-android-2.0.6.jar"
         jumboMode="false"
         revision="22.0.0"
         sha1="9b54af90b1718548570f6c6c44d8daad9e286dfd">
         <dex dex="/home/sergio/Android/studioProjects/github/QueMeDejes/app/build/intermediates/pre-dexed/debug/svg-android-2.0.6-ced44157caab285c3f8f9642ad3aab4a78197228.jar" />
+    </item>
+    <item
+        jar="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-base/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="4c93d99d454c975536bbe3b42283eee847f03ea3">
+        <dex dex="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/pre-dexed/debug/classes-3868b32a625e0ad978277688634d28d36265f354.jar" />
+    </item>
+    <item
+        jar="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-safetynet/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="c976518693e89ad44fbfccfc654941eaec198d08">
+        <dex dex="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/pre-dexed/debug/classes-2d7440176a8cd93cd1419b9420631cc6098692d9.jar" />
+    </item>
+    <item
+        jar="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-drive/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="41b3870cbe5fa546d8095b5b89d42cb69f3dd175">
+        <dex dex="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/pre-dexed/debug/classes-2bce76c057027c5393ea4fcfc00f9fa551c54bf3.jar" />
     </item>
     <item
         jar="/home/sergio/.gradle/caches/modules-2/files-2.1/com.google.api-client/google-api-client/1.20.0/d3e66209ae9e749b2d6833761e7885f60f285564/google-api-client-1.20.0.jar"
@@ -30,11 +65,32 @@
         <dex dex="/home/sergio/Android/studioProjects/github/QueMeDejes/app/build/intermediates/pre-dexed/debug/google-api-client-1.20.0-35accc1bafc67fa6b6c22f76cdf45b2b0bb71ca4.jar" />
     </item>
     <item
+        jar="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="d84409890828e07d344a3b9b1da545dba9897b51">
+        <dex dex="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/pre-dexed/debug/classes-4b8c23712d3a6a9264266b22a78d6a6e26ca0b23.jar" />
+    </item>
+    <item
+        jar="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.0.0/libs/internal_impl-22.0.0.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="b5b92f469d515a13d778900f6d50c03d12f35504">
+        <dex dex="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/pre-dexed/debug/internal_impl-22.0.0-32d13cb9e6ffc670a98ff2f3a474eb6d4ef36a6d.jar" />
+    </item>
+    <item
         jar="/home/sergio/.gradle/caches/modules-2/files-2.1/com.google.http-client/google-http-client-jackson2/1.20.0/2408070b2abec043624d35b35e30450f1b663858/google-http-client-jackson2-1.20.0.jar"
         jumboMode="false"
         revision="22.0.0"
         sha1="2408070b2abec043624d35b35e30450f1b663858">
         <dex dex="/home/sergio/Android/studioProjects/github/QueMeDejes/app/build/intermediates/pre-dexed/debug/google-http-client-jackson2-1.20.0-d48b7b7f9e1753924784f395ba4645eebf3e16f6.jar" />
+    </item>
+    <item
+        jar="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="e3d791b42eaa90416cd0b2d2e608092794a3baa4">
+        <dex dex="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/pre-dexed/debug/classes-e9bf4e3e55167f3fcc28b9675629505810fb2d04.jar" />
     </item>
     <item
         jar="/home/sergio/Android/studioProjects/github/QueMeDejes/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-safetynet/7.0.0/classes.jar"
@@ -58,6 +114,20 @@
         <dex dex="/home/sergio/Android/studioProjects/github/QueMeDejes/app/build/intermediates/pre-dexed/debug/gson-2.3.1-4c3b79d622ef0c8887e63a8ec8e09dc0cf660ebd.jar" />
     </item>
     <item
+        jar="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-plus/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="0e8228b4bc69c6a2c8d7c18498a77e53417d2574">
+        <dex dex="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/pre-dexed/debug/classes-9d478befe3c792d2abeadb34a3c162b49d70fec8.jar" />
+    </item>
+    <item
+        jar="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="4cd0b093824b3228fffc21ea369b98d0b1db6566">
+        <dex dex="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/pre-dexed/debug/classes-6c388847a3cc5a7ed51a47d45c5105f595ed9613.jar" />
+    </item>
+    <item
         jar="/home/sergio/Android/studioProjects/github/QueMeDejes/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-ads/7.0.0/classes.jar"
         jumboMode="false"
         revision="22.0.0"
@@ -70,6 +140,20 @@
         revision="22.0.0"
         sha1="11842de6a309c447b3a3d60d73ad637a87c58994">
         <dex dex="/home/sergio/Android/studioProjects/github/QueMeDejes/app/build/intermediates/pre-dexed/debug/classes-3c9ef35c0933eaf30c781e761762bf93f3350089.jar" />
+    </item>
+    <item
+        jar="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-fitness/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="3c0b099f9de16b265ecd6122fcb603e7d0d29f90">
+        <dex dex="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/pre-dexed/debug/classes-8bb65b33c921c3b0d8dcd7fcb47bc740c3561f18.jar" />
+    </item>
+    <item
+        jar="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wallet/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="a96b762bde4139de855735f175ec4d17dca55a6d">
+        <dex dex="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/pre-dexed/debug/classes-1022e7b5f1d22e2313448c51561e83f390e5704c.jar" />
     </item>
     <item
         jar="/home/sergio/Android/studioProjects/github/QueMeDejes/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-plus/7.0.0/classes.jar"
@@ -86,11 +170,25 @@
         <dex dex="/home/sergio/Android/studioProjects/github/QueMeDejes/app/build/intermediates/pre-dexed/debug/classes-923d215f79ffe71c3fbacc0810c94029d56b68f8.jar" />
     </item>
     <item
+        jar="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/exploded-aar/com.android.support/support-v13/22.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="7f9cca1caa023a880b00c382bcc5c90245ae4895">
+        <dex dex="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/pre-dexed/debug/classes-1085f008df56b726e1db60e37e5736eb9d9e32e1.jar" />
+    </item>
+    <item
         jar="/home/sergio/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.1.3/f6c3aed1cdfa21b5c1737c915186ea93a95a58bd/jackson-core-2.1.3.jar"
         jumboMode="false"
         revision="22.0.0"
         sha1="f6c3aed1cdfa21b5c1737c915186ea93a95a58bd">
         <dex dex="/home/sergio/Android/studioProjects/github/QueMeDejes/app/build/intermediates/pre-dexed/debug/jackson-core-2.1.3-f51ead26581e8a71d4aa14d432e4841de0b75b6e.jar" />
+    </item>
+    <item
+        jar="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="4e86306289ace4aa0cfec44a05ed2b410d36989d">
+        <dex dex="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/pre-dexed/debug/classes-7551d2bf7586de040dab9e864d8e9961d1eea101.jar" />
     </item>
     <item
         jar="/home/sergio/Android/studioProjects/github/QueMeDejes/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-fitness/7.0.0/classes.jar"
@@ -128,6 +226,13 @@
         <dex dex="/home/sergio/Android/studioProjects/github/QueMeDejes/app/build/intermediates/pre-dexed/debug/classes-1462b57e29e167491dd0cadeb0d0eb53b8152d8a.jar" />
     </item>
     <item
+        jar="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-games/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="055783146ba9654a725442563be78cad303aad1f">
+        <dex dex="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/pre-dexed/debug/classes-21c049c28238f6aa35dfb532c003736bc529beb0.jar" />
+    </item>
+    <item
         jar="/home/sergio/Android/studioProjects/github/QueMeDejes/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.0.0/classes.jar"
         jumboMode="false"
         revision="22.0.0"
@@ -147,6 +252,20 @@
         revision="22.0.0"
         sha1="d84409890828e07d344a3b9b1da545dba9897b51">
         <dex dex="/home/sergio/Android/studioProjects/github/QueMeDejes/app/build/intermediates/pre-dexed/debug/classes-78df9c20b793605e31dcc80d65cb1dc9b7cc0dc2.jar" />
+    </item>
+    <item
+        jar="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-identity/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="fb04b12526b0073c7fb1ebb70c5842d82ee95596">
+        <dex dex="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/pre-dexed/debug/classes-74ccdf6f2e8453380a7004c032bc8410594e3c29.jar" />
+    </item>
+    <item
+        jar="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-nearby/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="ef5f051e7308febe289dc93c67c5f32785b4260a">
+        <dex dex="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/pre-dexed/debug/classes-c02cea85465d52f07a13be0fd131c6e24acfed98.jar" />
     </item>
     <item
         jar="/home/sergio/.gradle/caches/modules-2/files-2.1/com.google.api-client/google-api-client-android/1.20.0/5673179575c32b69a474334255c3044adf18d40/google-api-client-android-1.20.0.jar"
@@ -177,6 +296,20 @@
         <dex dex="/home/sergio/Android/studioProjects/github/QueMeDejes/app/build/intermediates/pre-dexed/debug/internal_impl-22.0.0-2391c78336a055b49ba06fe0bc6dbdae863bb6ea.jar" />
     </item>
     <item
+        jar="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-analytics/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="29fd6d3794b71491c2789708cd8d03c71feb8954">
+        <dex dex="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/pre-dexed/debug/classes-3305d16b6101d63a105462f18e831e4287adbec3.jar" />
+    </item>
+    <item
+        jar="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-panorama/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="1c5a76debf0c2857ccad422c4a80ed785982f8df">
+        <dex dex="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/pre-dexed/debug/classes-50169ab5af2ae80a461c1493d3bd2ef8f404f0c9.jar" />
+    </item>
+    <item
         jar="/home/sergio/Android/studioProjects/github/QueMeDejes/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wallet/7.0.0/classes.jar"
         jumboMode="false"
         revision="22.0.0"
@@ -198,6 +331,13 @@
         <dex dex="/home/sergio/Android/studioProjects/github/QueMeDejes/app/build/intermediates/pre-dexed/debug/internal_impl-22.0.0-834a06b4c5743615dc503884482ab10e3b24ba0e.jar" />
     </item>
     <item
+        jar="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/22.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="11842de6a309c447b3a3d60d73ad637a87c58994">
+        <dex dex="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/pre-dexed/debug/classes-00a1344885220daabc357d215ac6f880c5a949f7.jar" />
+    </item>
+    <item
         jar="/home/sergio/Android/studioProjects/github/QueMeDejes/third_party/glide/library/libs/glide-3.2.0a.jar"
         jumboMode="false"
         revision="22.0.0"
@@ -212,18 +352,18 @@
         <dex dex="/home/sergio/Android/studioProjects/github/QueMeDejes/app/build/intermediates/pre-dexed/debug/classes-f415be613b00dfdff09229709ac2f30eadee69e2.jar" />
     </item>
     <item
-        jar="/home/sergio/.gradle/caches/modules-2/files-2.1/com.google.apis/google-api-services-plus/v1-rev217-1.20.0/47130ee3b96b915a7f86ed43c19b14a807b6b93/google-api-services-plus-v1-rev217-1.20.0.jar"
-        jumboMode="false"
-        revision="22.0.0"
-        sha1="047130ee3b96b915a7f86ed43c19b14a807b6b93">
-        <dex dex="/home/sergio/Android/studioProjects/github/QueMeDejes/app/build/intermediates/pre-dexed/debug/google-api-services-plus-v1-rev217-1.20.0-53dcd59e1ff28686a29a26612ffbd13add1a0d79.jar" />
-    </item>
-    <item
         jar="/home/sergio/Android/studioProjects/github/QueMeDejes/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/7.0.0/classes.jar"
         jumboMode="false"
         revision="22.0.0"
         sha1="73ccb92b70112f2e463e415ef8d7275de7da6516">
         <dex dex="/home/sergio/Android/studioProjects/github/QueMeDejes/app/build/intermediates/pre-dexed/debug/classes-e0d1e4f97272e0ac12860973b6c760fef79ed6ec.jar" />
+    </item>
+    <item
+        jar="/home/sergio/.gradle/caches/modules-2/files-2.1/com.google.apis/google-api-services-plus/v1-rev217-1.20.0/47130ee3b96b915a7f86ed43c19b14a807b6b93/google-api-services-plus-v1-rev217-1.20.0.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="047130ee3b96b915a7f86ed43c19b14a807b6b93">
+        <dex dex="/home/sergio/Android/studioProjects/github/QueMeDejes/app/build/intermediates/pre-dexed/debug/google-api-services-plus-v1-rev217-1.20.0-53dcd59e1ff28686a29a26612ffbd13add1a0d79.jar" />
     </item>
     <item
         jar="/home/sergio/Android/studioProjects/github/QueMeDejes/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wearable/7.0.0/classes.jar"
@@ -247,6 +387,13 @@
         <dex dex="/home/sergio/Android/studioProjects/github/QueMeDejes/app/build/intermediates/pre-dexed/debug/classes-0099109dce36b266ca4f0894de5e55c5a457cd01.jar" />
     </item>
     <item
+        jar="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appindexing/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="a08d65794b844d8e7540bf9a33859bf3b2482d7f">
+        <dex dex="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/pre-dexed/debug/classes-08acb5633e855e8d754da58025a4d1bc45292cbc.jar" />
+    </item>
+    <item
         jar="/home/sergio/Android/studioProjects/github/QueMeDejes/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-identity/7.0.0/classes.jar"
         jumboMode="false"
         revision="22.0.0"
@@ -254,11 +401,46 @@
         <dex dex="/home/sergio/Android/studioProjects/github/QueMeDejes/app/build/intermediates/pre-dexed/debug/classes-6e35481ab8bb0bd5ca12091043199e38ad1d96b9.jar" />
     </item>
     <item
+        jar="/home/sergio/Android/studioProjects/QueMeDejes/third_party/glide/library/libs/glide-3.2.0a.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="928ac110da755d5728af29ea5abb84b9e5e01086">
+        <dex dex="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/pre-dexed/debug/glide-3.2.0a-d02cbbac8ca410bb4fdde4be82230c7990626c8a.jar" />
+    </item>
+    <item
+        jar="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-location/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="73ccb92b70112f2e463e415ef8d7275de7da6516">
+        <dex dex="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/pre-dexed/debug/classes-24f1c1db8f40daf3e1b3cd514a093d1592e85492.jar" />
+    </item>
+    <item
+        jar="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-maps/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="17f8750d5c0749e44dd7c54aa390d9c937803825">
+        <dex dex="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/pre-dexed/debug/classes-54a830b37130c47d445462aed6aba97a65ae3f05.jar" />
+    </item>
+    <item
         jar="/home/sergio/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/22.0.0/support-annotations-22.0.0.jar"
         jumboMode="false"
         revision="22.0.0"
         sha1="685d0b2c590447e85284ed84712cb363ba04eff8">
         <dex dex="/home/sergio/Android/studioProjects/github/QueMeDejes/app/build/intermediates/pre-dexed/debug/support-annotations-22.0.0-786a82b4181322c147427af019137701ed5e9d7c.jar" />
+    </item>
+    <item
+        jar="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-wearable/7.0.0/classes.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="3033cc3a2c68dff3e5b646d6d084bdbdf7d00b25">
+        <dex dex="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/pre-dexed/debug/classes-95d5e6e3aa26ac0fd51fb016cd382c0d57b83787.jar" />
+    </item>
+    <item
+        jar="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/exploded-aar/com.android.support/support-v13/22.0.0/libs/internal_impl-22.0.0.jar"
+        jumboMode="false"
+        revision="22.0.0"
+        sha1="def3eff2b7b4774d96ae15b07b3fc0111edbfe24">
+        <dex dex="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/pre-dexed/debug/internal_impl-22.0.0-e41247b8702f85f03c51ad9303785daecd8d91c3.jar" />
     </item>
     <item
         jar="/home/sergio/Android/studioProjects/github/QueMeDejes/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-games/7.0.0/classes.jar"

@@ -38,7 +38,7 @@ public class QuemedejesSyncAdapter extends AbstractThreadedSyncAdapter {
     public final String LOG_TAG = QuemedejesSyncAdapter.class.getSimpleName();
     // Interval at which to sync with the weather, in seconds.
     // 60 seconds (1 minute) * 180 = 3 hours
-    public static final int SYNC_INTERVAL = 10;
+    public static final int SYNC_INTERVAL = 60;
     public static final int SYNC_FLEXTIME = SYNC_INTERVAL/3;
     private static final long DAY_IN_MILLIS = 1000 * 60 * 60 * 24;
     private static final int WEATHER_NOTIFICATION_ID = 3004;
@@ -90,10 +90,11 @@ public class QuemedejesSyncAdapter extends AbstractThreadedSyncAdapter {
         // now we work exclusively in UTC
         dayTime = new Time();
 
+        long day_delete_init = dayTime.setJulianDay(julianStartDay - 1);
         
         ContentValues routeValues = new ContentValues();
         routeValues.put(RouteContract.RouteEntry.COLUMN_LOC_KEY, locationId);
-        routeValues.put(RouteContract.RouteEntry.COLUMN_DATE, TEST_DATE);
+        routeValues.put(RouteContract.RouteEntry.COLUMN_DATE, Long.toString(dayTime.setJulianDay(julianStartDay)));
         routeValues.put(RouteContract.RouteEntry.COLUMN_ROUTE_ID, "high");
         routeValues.put(RouteContract.RouteEntry.COLUMN_DURATION_ROUTE, 60);
         routeValues.put(RouteContract.RouteEntry.COLUMN_DISTANCE_ROUTE, 1800);
@@ -111,7 +112,7 @@ public class QuemedejesSyncAdapter extends AbstractThreadedSyncAdapter {
             // delete old data so we don't build up an endless history
             getContext().getContentResolver().delete(RouteContract.RouteEntry.CONTENT_URI,
                     RouteContract.RouteEntry.COLUMN_DATE + " <= ?",
-                    new String[] {Long.toString(dayTime.setJulianDay(julianStartDay-1))});
+                    new String[] {Long.toString(day_delete_init)});
 
             notifyRoute();
         }
