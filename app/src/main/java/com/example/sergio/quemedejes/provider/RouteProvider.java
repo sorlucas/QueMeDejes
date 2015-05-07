@@ -19,8 +19,7 @@ public class RouteProvider extends ContentProvider {
     private RouteDbHelper mOpenHelper;
 
     public static final int ROUTE = 100;
-    public static final int ROUTE_WITH_LOCATION = 101;
-    public static final int ROUTE_WITH_LOCATION_AND_DATE = 102;
+    public static final int ROUTE_WITH_ID = 101;
     public static final int LOCATION = 300;
 
     private static final SQLiteQueryBuilder sRouteByLocationSettingQueryBuilder;
@@ -39,69 +38,43 @@ public class RouteProvider extends ContentProvider {
                         "." + RouteContract.LocationEntry._ID);
     }
 
-    //location.location_setting = ?
-    private static final String sLocationSettingSelection =
-            RouteContract.LocationEntry.TABLE_NAME+
-                    "." + RouteContract.LocationEntry.COLUMN_CITY_NAME_INIT + " = ? ";
+    //route.date >= ?
+    private static final String sRouteWithStartDateSelection =
+            RouteContract.RouteEntry.TABLE_NAME+
+                    "." + RouteContract.RouteEntry.COLUMN_DATE + " >= ? ";
 
-    //location.location_setting = ? AND date >= ?
-    private static final String sLocationSettingWithStartDateSelection =
-            RouteContract.LocationEntry.TABLE_NAME+
-                    "." + RouteContract.LocationEntry.COLUMN_CITY_NAME_INIT + " = ? AND " +
-                    RouteContract.RouteEntry.COLUMN_DATE + " >= ? ";
+    //route._id = ?
+    private static final String sRouteWithIdSelection =
+            RouteContract.RouteEntry.TABLE_NAME+
+                    "." + RouteContract.RouteEntry._ID + " = ? ";
 
-    //location.location_setting = ? AND date = ?
-    private static final String sLocationSettingAndDaySelection =
-            RouteContract.LocationEntry.TABLE_NAME +
-                    "." + RouteContract.LocationEntry.COLUMN_CITY_NAME_INIT + " = ? AND " +
-                    RouteContract.RouteEntry.COLUMN_DATE + " = ? ";
-
-    private Cursor getRouteByLocationSetting(Uri uri, String[] projection, String sortOrder) {
-        String locationSetting = RouteContract.RouteEntry.getLocationSettingFromUri(uri);
-        long startDate = RouteContract.RouteEntry.getStartDateFromUri(uri);
-
-        String[] selectionArgs;
-        String selection;
-
-        if (startDate == 0) {
-            selection = sLocationSettingSelection;
-            selectionArgs = new String[]{locationSetting};
-        } else {
-            selectionArgs = new String[]{locationSetting, Long.toString(startDate)};
-            selection = sLocationSettingWithStartDateSelection;
-        }
-
+    private Cursor getRouteByAscDate(Uri uri, String[] projection, String sortOrder){
+        long actualTime = System.currentTimeMillis();
         return sRouteByLocationSettingQueryBuilder.query(mOpenHelper.getReadableDatabase(),
                 projection,
-                selection,
-                selectionArgs,
+                sRouteWithStartDateSelection,
+                new String[]{Long.toString(actualTime)},
                 null,
                 null,
                 sortOrder
         );
     }
 
-    private Cursor getRouteByLocationSettingAndDate(
-            Uri uri, String[] projection, String sortOrder) {
-        String locationSetting = RouteContract.RouteEntry.getLocationSettingFromUri(uri);
-        long date = RouteContract.RouteEntry.getDateFromUri(uri);
-
+    private Cursor getRouteById(Uri uri, String[] projection, String sortOrder ) {
+        String routeId = RouteContract.RouteEntry.getRouteIdFromUri(uri);
         return sRouteByLocationSettingQueryBuilder.query(mOpenHelper.getReadableDatabase(),
                 projection,
-                sLocationSettingAndDaySelection,
-                new String[]{locationSetting, Long.toString(date)},
+                sRouteWithIdSelection,
+                new String[]{routeId},
                 null,
                 null,
                 sortOrder
         );
     }
 
-    /*
-        Students: Here is where you need to create the UriMatcher. This UriMatcher will
-        match each URI to the ROUTE, ROUTE_WITH_LOCATION, ROUTE_WITH_LOCATION_AND_DATE,
-        and LOCATION integer constants defined above.  You can test this by uncommenting the
-        testUriMatcher test within TestUriMatcher.
-     */
+
+    /*  This UriMatcher willmatch each URI to the ROUTE, ROUTE_WITH_ID, ROUTE_SHORT_ASC,
+        and LOCATION integer constants defined above.     */
     public static UriMatcher buildUriMatcher() {
         // I know what you're thinking.  Why create a UriMatcher when you can use regular
         // expressions instead?  Because you're not crazy, that's why.
@@ -114,28 +87,16 @@ public class RouteProvider extends ContentProvider {
 
         // For each type of URI you want to add, create a corresponding code.
         matcher.addURI(authority, RouteContract.PATH_ROUTE, ROUTE);
-        matcher.addURI(authority, RouteContract.PATH_ROUTE + "/*", ROUTE_WITH_LOCATION);
-        matcher.addURI(authority, RouteContract.PATH_ROUTE + "/*/#", ROUTE_WITH_LOCATION_AND_DATE);
-
+        matcher.addURI(authority, RouteContract.PATH_ROUTE + "/*", ROUTE_WITH_ID);
         matcher.addURI(authority, RouteContract.PATH_LOCATION, LOCATION);
+
         return matcher;
     }
-
-    /*
-        Students: We've coded this for you.  We just create a new RouteDbHelper for later use
-        here.
-     */
     @Override
     public boolean onCreate() {
         mOpenHelper = new RouteDbHelper(getContext());
         return true;
     }
-
-    /*
-        Students: Here's where you'll code the getType function that uses the UriMatcher.  You can
-        test this by uncommenting testGetType in TestProvider.
-
-     */
     @Override
     public String getType(Uri uri) {
 
@@ -143,12 +104,9 @@ public class RouteProvider extends ContentProvider {
         final int match = sUriMatcher.match(uri);
 
         switch (match) {
-            // Student: Uncomment and fill out these two cases
-            case ROUTE_WITH_LOCATION_AND_DATE:
-                return RouteContract.RouteEntry.CONTENT_ITEM_TYPE;
-            case ROUTE_WITH_LOCATION:
-                return RouteContract.RouteEntry.CONTENT_TYPE;
             case ROUTE:
+                return RouteContract.RouteEntry.CONTENT_TYPE;
+            case ROUTE_WITH_ID:
                 return RouteContract.RouteEntry.CONTENT_TYPE;
             case LOCATION:
                 return RouteContract.LocationEntry.CONTENT_TYPE;
@@ -160,32 +118,38 @@ public class RouteProvider extends ContentProvider {
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs,
                         String sortOrder) {
+
         // Here's the switch statement that, given a URI, will determine what kind of request it is,
         // and query the database accordingly.
         Cursor retCursor;
         switch (sUriMatcher.match(uri)) {
-            // "weather/*/*"
-            case ROUTE_WITH_LOCATION_AND_DATE:
-            {
-                retCursor = getRouteByLocationSettingAndDate(uri, projection, sortOrder);
-                break;
-            }
-            // "weather/*"
-            case ROUTE_WITH_LOCATION: {
-                retCursor = getRouteByLocationSetting(uri, projection, sortOrder);
-                break;
-            }
-            // "weather"
+            // "route"
             case ROUTE: {
-                retCursor = mOpenHelper.getReadableDatabase().query(
-                        RouteContract.RouteEntry.TABLE_NAME,
-                        projection,
-                        selection,
-                        selectionArgs,
-                        null,
-                        null,
-                        sortOrder
-                );
+
+
+                //Parte muy cutre
+                if (selection != null){
+                    retCursor = getRouteByAscDate(uri, projection, sortOrder);
+                }
+                else {
+                    retCursor = mOpenHelper.getReadableDatabase().query(
+                            RouteContract.RouteEntry.TABLE_NAME,
+                            projection,
+                            selection,
+                            selectionArgs,
+                            null,
+                            null,
+                            sortOrder
+                    );
+                }
+
+                //////ARREGLAR ESTA PARTE ^
+
+                break;
+            }
+            // "route with id"
+            case ROUTE_WITH_ID: {
+                retCursor = getRouteById(uri, projection, sortOrder);
                 break;
             }
             // "location"
@@ -301,33 +265,6 @@ public class RouteProvider extends ContentProvider {
             getContext().getContentResolver().notifyChange(uri, null);
         }
         return rowsUpdated;
-    }
-
-    @Override
-    public int bulkInsert(Uri uri, ContentValues[] values) {
-        final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
-        final int match = sUriMatcher.match(uri);
-        switch (match) {
-            case ROUTE:
-                db.beginTransaction();
-                int returnCount = 0;
-                try {
-                    for (ContentValues value : values) {
-                        normalizeDate(value);
-                        long _id = db.insert(RouteContract.RouteEntry.TABLE_NAME, null, value);
-                        if (_id != -1) {
-                            returnCount++;
-                        }
-                    }
-                    db.setTransactionSuccessful();
-                } finally {
-                    db.endTransaction();
-                }
-                getContext().getContentResolver().notifyChange(uri, null);
-                return returnCount;
-            default:
-                return super.bulkInsert(uri, values);
-        }
     }
 
     // You do not need to call this method. This is a method specifically to assist the testing

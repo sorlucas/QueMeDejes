@@ -84,13 +84,13 @@ public class BrowseSessionsAdapter extends CursorAdapter {
             case VIEW_TYPE_TODAY: {
                 // Get weather icon
                 viewHolder.iconView.setImageResource(Utility.getArtResourceForRouteCondition(
-                        cursor.getString(BrowseSessionsFragment.COL_ROUTE_DESC)));
+                        cursor.getString(BrowseSessionsFragment.COL_ROUTE_SHORT_DESC)));
                 break;
             }
             case VIEW_TYPE_FUTURE_DAY: {
                 // Get weather icon
                 viewHolder.iconView.setImageResource(Utility.getIconResourceForRouteCondition(
-                        cursor.getString(BrowseSessionsFragment.COL_ROUTE_DESC)));
+                        cursor.getString(BrowseSessionsFragment.COL_ROUTE_SHORT_DESC)));
                 break;
             }
         }
@@ -101,7 +101,7 @@ public class BrowseSessionsAdapter extends CursorAdapter {
         viewHolder.dateView.setText(Utility.getFriendlyDayString(context, dateInMillis));
 
         // Read weather forecast from cursor
-        String description = cursor.getString(BrowseSessionsFragment.COL_ROUTE_DESC);
+        String description = cursor.getString(BrowseSessionsFragment.COL_ROUTE_SHORT_DESC);
         // Find TextView and set weather forecast on it
         viewHolder.descriptionView.setText(description);
 

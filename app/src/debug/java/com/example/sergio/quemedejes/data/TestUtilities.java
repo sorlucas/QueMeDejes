@@ -22,9 +22,12 @@ import java.util.Set;
  */
 public class TestUtilities extends AndroidTestCase{
 
-    static final String TEST_LOCATION_INIT = "Robledillo de gata";
-    static final String TEST_LOCATION_FINAL = "Ciudad Rodrigo";
-    static final long TEST_DATE = 1419033600L;  // December 20th, 2014
+    static final long TEST_ROUTE_ID = 123;
+    static final String TEST_ROUTE_NAME = "El descenso de Robledillo";
+    static final String TEST_LOCATION_MEET = "puebla de azaba";
+    static final String TEST_LOCATION_INIT = "robledillo de gata";
+    static final String TEST_LOCATION_FINAL = "ciudad rodrigo";
+    static final long TEST_DATE = System.currentTimeMillis() + 100000000;  // December 20th, 2014
 
     static void validateCursor(String error, Cursor valueCursor, ContentValues expectedValues) {
         assertTrue("Empty cursor returned. " + error, valueCursor.moveToFirst());
@@ -52,12 +55,14 @@ public class TestUtilities extends AndroidTestCase{
 
         // Create a new map of values, where column names are the keys
         ContentValues routeValues = new ContentValues();
+
         routeValues.put(RouteContract.RouteEntry.COLUMN_LOC_KEY, locationRowId);
         routeValues.put(RouteContract.RouteEntry.COLUMN_DATE, TEST_DATE);
-        //routeValues.put(RouteContract.RouteEntry.COLUMN_ROUTE_NAME, "matalascañas");
-        routeValues.put(RouteContract.RouteEntry.COLUMN_ROUTE_ID, "baja");
-        routeValues.put(RouteContract.RouteEntry.COLUMN_DURATION_ROUTE, 40);
-        routeValues.put(RouteContract.RouteEntry.COLUMN_DISTANCE_ROUTE, 180);
+        routeValues.put(RouteContract.RouteEntry.COLUMN_SHORT_DESC, "baja");
+        routeValues.put(RouteContract.RouteEntry.COLUMN_DURATION_ROUTE, 147.353);
+        routeValues.put(RouteContract.RouteEntry.COLUMN_DISTANCE_ROUTE, 64.7488);
+        routeValues.put(RouteContract.RouteEntry.COLUMN_IMG_URL, "https://www.youtube.com/watch?v=jcwEJKazq0I&index=2&list=RDMMlAzHvsTolQ0");
+        //routeValues.put(RouteContract.RouteEntry.COLUMN_NAME_ROUTE, TEST_ROUTE_NAME);
 
         return routeValues;
 
@@ -70,12 +75,15 @@ public class TestUtilities extends AndroidTestCase{
     static ContentValues createNorthPoleLocationValues() {
         // Create a new map of values, where column names are the keys
         ContentValues testValues = new ContentValues();
+        testValues.put(RouteContract.LocationEntry.COLUMN_CITY_NAME_MEET, TEST_LOCATION_MEET);
         testValues.put(RouteContract.LocationEntry.COLUMN_CITY_NAME_INIT, TEST_LOCATION_INIT);
         testValues.put(RouteContract.LocationEntry.COLUMN_CITY_NAME_FINAL, TEST_LOCATION_FINAL);
         testValues.put(RouteContract.LocationEntry.COLUMN_COORD_LAT_INIT, -147.353);
         testValues.put(RouteContract.LocationEntry.COLUMN_COORD_LONG_INIT, 64.7488);
         testValues.put(RouteContract.LocationEntry.COLUMN_COORD_LAT_FINAL, -146.353);
         testValues.put(RouteContract.LocationEntry.COLUMN_COORD_LONG_FINAL, 64.7488);
+        testValues.put(RouteContract.LocationEntry.COLUMN_COORD_LAT_MEET, -145.353);
+        testValues.put(RouteContract.LocationEntry.COLUMN_COORD_LONG_MEET, 64.7488);
 
         return testValues;
     }

@@ -48,7 +48,7 @@ public class QuemedejesSyncAdapter extends AbstractThreadedSyncAdapter {
             RouteContract.RouteEntry.COLUMN_DATE,
             RouteContract.RouteEntry.COLUMN_DURATION_ROUTE,
             RouteContract.RouteEntry.COLUMN_DISTANCE_ROUTE,
-            RouteContract.RouteEntry.COLUMN_ROUTE_ID
+            RouteContract.RouteEntry.COLUMN_SHORT_DESC
     };
 
     // these indices must match the projection
@@ -95,7 +95,7 @@ public class QuemedejesSyncAdapter extends AbstractThreadedSyncAdapter {
         ContentValues routeValues = new ContentValues();
         routeValues.put(RouteContract.RouteEntry.COLUMN_LOC_KEY, locationId);
         routeValues.put(RouteContract.RouteEntry.COLUMN_DATE, Long.toString(dayTime.setJulianDay(julianStartDay)));
-        routeValues.put(RouteContract.RouteEntry.COLUMN_ROUTE_ID, "high");
+        routeValues.put(RouteContract.RouteEntry.COLUMN_SHORT_DESC, "high");
         routeValues.put(RouteContract.RouteEntry.COLUMN_DURATION_ROUTE, 60);
         routeValues.put(RouteContract.RouteEntry.COLUMN_DISTANCE_ROUTE, 1800);
 
@@ -138,7 +138,7 @@ public class QuemedejesSyncAdapter extends AbstractThreadedSyncAdapter {
                 // Last sync was more than 1 day ago, let's send a notification with the weather.
                 String locationQuery = Utility.getPreferredLocation(context);
 
-                Uri weatherUri = RouteContract.RouteEntry.buildRouteLocationWithDate(locationQuery, System.currentTimeMillis());
+                Uri weatherUri = RouteContract.RouteEntry.buildRouteUri(System.currentTimeMillis());
 
                 // we'll query our contentProvider, as always
                 Cursor cursor = context.getContentResolver().query(weatherUri, NOTIFY_WEATHER_PROJECTION, null, null, null);

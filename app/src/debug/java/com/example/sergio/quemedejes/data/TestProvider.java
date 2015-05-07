@@ -128,10 +128,10 @@ public class TestProvider extends AndroidTestCase {
         assertEquals("Error: the RouteEntry CONTENT_URI should return RouteEntry.CONTENT_TYPE",
                 RouteEntry.CONTENT_TYPE, type);
 
-        String testLocation = "Robledillo de gata";
+        long testRouteId = 123;
         // content://com.example.sergio.quemedejes/weather/94074
         type = mContext.getContentResolver().getType(
-                RouteEntry.buildRouteLocation(testLocation));
+                RouteEntry.buildRouteUri(testRouteId));
         // vnd.android.cursor.dir/com.example.sergio.quemedejes/weather
         assertEquals("Error: the RouteEntry CONTENT_URI with location should return RouteEntry.CONTENT_TYPE",
                 RouteEntry.CONTENT_TYPE, type);
@@ -139,10 +139,10 @@ public class TestProvider extends AndroidTestCase {
         long testDate = 1419120000L; // December 21st, 2014
         // content://com.example.sergio.quemedejes/weather/94074/20140612
         type = mContext.getContentResolver().getType(
-                RouteEntry.buildRouteLocationWithDate(testLocation, testDate));
+                RouteEntry.buildRouteUri(testRouteId).buildUpon().appendQueryParameter(RouteEntry.COLUMN_DATE,String.valueOf(testDate)).build());
         // vnd.android.cursor.item/com.example.sergio.quemedejes/weather/1419120000
         assertEquals("Error: the RouteEntry CONTENT_URI with location and date should return RouteEntry.CONTENT_ITEM_TYPE",
-                RouteEntry.CONTENT_ITEM_TYPE, type);
+                RouteEntry.CONTENT_TYPE, type);
 
         // content://com.example.sergio.quemedejes/location/
         type = mContext.getContentResolver().getType(LocationEntry.CONTENT_URI);
@@ -166,9 +166,9 @@ public class TestProvider extends AndroidTestCase {
         long locationRowId = TestUtilities.insertNorthPoleLocationValues(mContext);
 
         // Fantastic.  Now that we have a location, add some weather!
-        ContentValues weatherValues = TestUtilities.createRouteValues(locationRowId);
+        ContentValues routeValues = TestUtilities.createRouteValues(locationRowId);
 
-        long weatherRowId = db.insert(RouteEntry.TABLE_NAME, null, weatherValues);
+        long weatherRowId = db.insert(RouteEntry.TABLE_NAME, null, routeValues);
         assertTrue("Unable to Insert RouteEntry into the Database", weatherRowId != -1);
 
         db.close();
@@ -181,9 +181,10 @@ public class TestProvider extends AndroidTestCase {
                 null,
                 null
         );
+        assertNotNull(weatherCursor);
 
         // Make sure we get the correct cursor out of the database
-        TestUtilities.validateCursor("testBasicRouteQuery", weatherCursor, weatherValues);
+        TestUtilities.validateCursor("testBasicRouteQuery", weatherCursor, routeValues);
     }
 
     /*
@@ -315,15 +316,17 @@ public class TestProvider extends AndroidTestCase {
                 cursor, testValues);
 
         // Fantastic.  Now that we have a location, add some weather!
-        ContentValues weatherValues = TestUtilities.createRouteValues(locationRowId);
+        ContentValues routeValues = TestUtilities.createRouteValues(locationRowId);
         // The TestContentObserver is a one-shot class
         tco = TestUtilities.getTestContentObserver();
 
         mContext.getContentResolver().registerContentObserver(RouteEntry.CONTENT_URI, true, tco);
 
         Uri weatherInsertUri = mContext.getContentResolver()
-                .insert(RouteEntry.CONTENT_URI, weatherValues);
+                .insert(RouteEntry.CONTENT_URI, routeValues);
         assertTrue(weatherInsertUri != null);
+
+        long route_id = ContentUris.parseId(weatherInsertUri);
 
         // Did our content observer get called?  Students:  If this fails, your insert weather
         // in your ContentProvider isn't calling
@@ -341,45 +344,34 @@ public class TestProvider extends AndroidTestCase {
         );
 
         TestUtilities.validateCursor("testInsertReadProvider. Error validating RouteEntry insert.",
-                weatherCursor, weatherValues);
+                weatherCursor, routeValues);
 
         // Add the location values in with the weather data so that we can make
         // sure that the join worked and we actually get all the values back
-        weatherValues.putAll(testValues);
+        routeValues.putAll(testValues);
 
         // Get the joined Route and Location data
         weatherCursor = mContext.getContentResolver().query(
-                RouteEntry.buildRouteLocation(TestUtilities.TEST_LOCATION_INIT),
+                RouteEntry.buildRouteUri(route_id),
                 null, // leaving "columns" null just returns all the columns.
                 null, // cols for "where" clause
                 null, // values for "where" clause
                 null  // sort order
         );
         TestUtilities.validateCursor("testInsertReadProvider.  Error validating joined Route and Location Data.",
-                weatherCursor, weatherValues);
+                weatherCursor, routeValues);
 
         // Get the joined Route and Location data with a start date
         weatherCursor = mContext.getContentResolver().query(
-                RouteEntry.buildRouteLocationWithStartDate(
-                        TestUtilities.TEST_LOCATION_INIT, TestUtilities.TEST_DATE),
+                RouteEntry.CONTENT_URI,
                 null, // leaving "columns" null just returns all the columns.
-                null, // cols for "where" clause
+                "ASC", // cols for "where" clause
                 null, // values for "where" clause
                 null  // sort order
         );
         TestUtilities.validateCursor("testInsertReadProvider.  Error validating joined Route and Location Data with start date.",
-                weatherCursor, weatherValues);
+                weatherCursor, routeValues);
 
-        // Get the joined Route data for a specific date
-        weatherCursor = mContext.getContentResolver().query(
-                RouteEntry.buildRouteLocationWithDate(TestUtilities.TEST_LOCATION_INIT, TestUtilities.TEST_DATE),
-                null,
-                null,
-                null,
-                null
-        );
-        TestUtilities.validateCursor("testInsertReadProvider.  Error validating joined Route and Location data for a specific date.",
-                weatherCursor, weatherValues);
     }
 
     // Make sure we can still delete after adding/updating stuff
@@ -410,90 +402,4 @@ public class TestProvider extends AndroidTestCase {
         mContext.getContentResolver().unregisterContentObserver(weatherObserver);
     }
 
-
-    static private final int BULK_INSERT_RECORDS_TO_INSERT = 10;
-    static ContentValues[] createBulkInsertRouteValues(long locationRowId) {
-        long currentTestDate = TestUtilities.TEST_DATE;
-        long millisecondsInADay = 1000*60*60*24;
-        ContentValues[] returnContentValues = new ContentValues[BULK_INSERT_RECORDS_TO_INSERT];
-
-        for ( int i = 0; i < BULK_INSERT_RECORDS_TO_INSERT; i++, currentTestDate+= millisecondsInADay ) {
-            ContentValues weatherValues = new ContentValues();
-            weatherValues.put(RouteContract.RouteEntry.COLUMN_LOC_KEY, locationRowId);
-            weatherValues.put(RouteContract.RouteEntry.COLUMN_DATE, currentTestDate);
-            weatherValues.put(RouteEntry.COLUMN_ROUTE_ID, "alto");
-            weatherValues.put(RouteEntry.COLUMN_DURATION_ROUTE, 60);
-            weatherValues.put(RouteEntry.COLUMN_DISTANCE_ROUTE, 1800);
-            returnContentValues[i] = weatherValues;
-        }
-        return returnContentValues;
-    }
-
-    // Student: Uncomment this test after you have completed writing the BulkInsert functionality
-    // in your provider.  Note that this test will work with the built-in (default) provider
-    // implementation, which just inserts records one-at-a-time, so really do implement the
-    // BulkInsert ContentProvider function.
-    public void testBulkInsert() {
-        // first, let's create a location value
-        ContentValues testValues = TestUtilities.createNorthPoleLocationValues();
-        Uri locationUri = mContext.getContentResolver().insert(LocationEntry.CONTENT_URI, testValues);
-        long locationRowId = ContentUris.parseId(locationUri);
-
-        // Verify we got a row back.
-        assertTrue(locationRowId != -1);
-
-        // Data's inserted.  IN THEORY.  Now pull some out to stare at it and verify it made
-        // the round trip.
-
-        // A cursor is your primary interface to the query results.
-        Cursor cursor = mContext.getContentResolver().query(
-                LocationEntry.CONTENT_URI,
-                null, // leaving "columns" null just returns all the columns.
-                null, // cols for "where" clause
-                null, // values for "where" clause
-                null  // sort order
-        );
-
-        TestUtilities.validateCursor("testBulkInsert. Error validating LocationEntry.",
-                cursor, testValues);
-
-        // Now we can bulkInsert some weather.  In fact, we only implement BulkInsert for weather
-        // entries.  With ContentProviders, you really only have to implement the features you
-        // use, after all.
-        ContentValues[] bulkInsertContentValues = createBulkInsertRouteValues(locationRowId);
-
-        // Register a content observer for our bulk insert.
-        TestUtilities.TestContentObserver weatherObserver = TestUtilities.getTestContentObserver();
-        mContext.getContentResolver().registerContentObserver(RouteEntry.CONTENT_URI, true, weatherObserver);
-
-        int insertCount = mContext.getContentResolver().bulkInsert(RouteEntry.CONTENT_URI, bulkInsertContentValues);
-
-        // Students:  If this fails, it means that you most-likely are not calling the
-        // getContext().getContentResolver().notifyChange(uri, null); in your BulkInsert
-        // ContentProvider method.
-        weatherObserver.waitForNotificationOrFail();
-        mContext.getContentResolver().unregisterContentObserver(weatherObserver);
-
-        assertEquals(insertCount, BULK_INSERT_RECORDS_TO_INSERT);
-
-        // A cursor is your primary interface to the query results.
-        cursor = mContext.getContentResolver().query(
-                RouteEntry.CONTENT_URI,
-                null, // leaving "columns" null just returns all the columns.
-                null, // cols for "where" clause
-                null, // values for "where" clause
-                RouteEntry.COLUMN_DATE + " ASC"  // sort order == by DATE ASCENDING
-        );
-
-        // we should have as many records in the database as we've inserted
-        assertEquals(cursor.getCount(), BULK_INSERT_RECORDS_TO_INSERT);
-
-        // and let's make sure they match the ones we created
-        cursor.moveToFirst();
-        for ( int i = 0; i < BULK_INSERT_RECORDS_TO_INSERT; i++, cursor.moveToNext() ) {
-            TestUtilities.validateCurrentRecord("testBulkInsert.  Error validating RouteEntry " + i,
-                    cursor, bulkInsertContentValues[i]);
-        }
-        cursor.close();
-    }
 }

@@ -54,11 +54,14 @@ public class RouteContract {
         public static final String TABLE_NAME = "location";
 
         // Human readable location string, provided by the API.
+        public static final String COLUMN_CITY_NAME_MEET = "city_name_meet";
         public static final String COLUMN_CITY_NAME_INIT = "city_name_init";
         public static final String COLUMN_CITY_NAME_FINAL = "city_name_final";
 
         // In order to uniquely pinpoint the location on the map when we launch the
         // map intent, we store the latitude and longitude as returned by openweathermap.
+        public static final String COLUMN_COORD_LAT_MEET = "coord_lat_meet";
+        public static final String COLUMN_COORD_LONG_MEET = "coord_long_meet";
         public static final String COLUMN_COORD_LAT_INIT = "coord_lat_init";
         public static final String COLUMN_COORD_LONG_INIT = "coord_long_init";
         public static final String COLUMN_COORD_LAT_FINAL = "coord_lat_final";
@@ -83,47 +86,27 @@ public class RouteContract {
         public static final String TABLE_NAME = "route";
 
         //Column with the name Specific Route
-        public static final String COLUMN_ROUTE_NAME = "route_name";
+        public static final String COLUMN_NAME_ROUTE = "name_route";
         // Column with the foreign key into the location table.
         public static final String COLUMN_LOC_KEY = "location_id";
         // Date, stored as long in milliseconds since the epoch
         public static final String COLUMN_DATE = "date";
         // Route id is specific to admin, to identify the icon level to be used (Low - Medium - High)
-        public static final String COLUMN_ROUTE_ID = "route_id";
-
+        public static final String COLUMN_SHORT_DESC = "short_desc";
         // Duration route
         public static final String COLUMN_DURATION_ROUTE = "duration_route";
         // Distance route
         public static final String COLUMN_DISTANCE_ROUTE = "distance_route";
+        // Image url
+        public static final String COLUMN_IMG_URL = "img_url";
 
 
         public static Uri buildRouteUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
         }
 
-        /*  Student: This is the buildRouteLocation function you filled in.        */
-        public static Uri buildRouteLocation(String locationSetting) {
-            return CONTENT_URI.buildUpon().appendPath(locationSetting).build();
-        }
-
-        public static Uri buildRouteLocationWithStartDate(
-                String locationSetting, long startDate) {
-            long normalizedDate = normalizeDate(startDate);
-            return CONTENT_URI.buildUpon().appendPath(locationSetting)
-                    .appendQueryParameter(COLUMN_DATE, Long.toString(normalizedDate)).build();
-        }
-
-        public static Uri buildRouteLocationWithDate(String locationSetting, long date) {
-            return CONTENT_URI.buildUpon().appendPath(locationSetting)
-                    .appendPath(Long.toString(normalizeDate(date))).build();
-        }
-
-        public static String getLocationSettingFromUri(Uri uri) {
+        public static String getRouteIdFromUri(Uri uri) {
             return uri.getPathSegments().get(1);
-        }
-
-        public static long getDateFromUri(Uri uri) {
-            return Long.parseLong(uri.getPathSegments().get(2));
         }
 
         public static long getStartDateFromUri(Uri uri) {
@@ -134,5 +117,4 @@ public class RouteContract {
                 return 0;
         }
     }
-
 }
