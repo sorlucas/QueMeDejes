@@ -52,6 +52,7 @@ import com.example.sergio.quemedejes.sync.QuemedejesSyncAdapter;
 import com.example.sergio.quemedejes.ui.widget.MultiSwipeRefreshLayout;
 import com.example.sergio.quemedejes.ui.widget.ScrimInsetsScrollView;
 import com.example.sergio.quemedejes.util.AccountUtils;
+import com.example.sergio.quemedejes.util.AndroidDatabaseManager;
 import com.example.sergio.quemedejes.util.HelpUtils;
 import com.example.sergio.quemedejes.util.ImageLoader;
 import com.example.sergio.quemedejes.util.LUtils;
@@ -719,6 +720,8 @@ public abstract class BaseActivity extends ActionBarActivity implements
                 return true;
 
             case R.id.menu_wifi:
+                Intent dbmanager = new Intent(getApplicationContext(),AndroidDatabaseManager.class);
+                startActivity(dbmanager);
                 return true;
 
             case R.id.menu_i_o_hunt:

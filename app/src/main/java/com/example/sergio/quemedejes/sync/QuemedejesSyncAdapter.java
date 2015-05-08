@@ -7,7 +7,6 @@ import android.app.PendingIntent;
 import android.content.AbstractThreadedSyncAdapter;
 import android.content.ContentProviderClient;
 import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -24,25 +23,24 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
-import android.text.format.Time;
 import android.util.Log;
 
 import com.example.sergio.quemedejes.R;
+import com.example.sergio.quemedejes.data.TestUtilities;
 import com.example.sergio.quemedejes.provider.RouteContract;
 import com.example.sergio.quemedejes.ui.BrowseSessionsActivity;
 import com.example.sergio.quemedejes.util.Utility;
-
-import java.util.Vector;
 
 public class QuemedejesSyncAdapter extends AbstractThreadedSyncAdapter {
     public final String LOG_TAG = QuemedejesSyncAdapter.class.getSimpleName();
     // Interval at which to sync with the weather, in seconds.
     // 60 seconds (1 minute) * 180 = 3 hours
-    public static final int SYNC_INTERVAL = 60;
+    public static final int SYNC_INTERVAL = 10;
     public static final int SYNC_FLEXTIME = SYNC_INTERVAL/3;
     private static final long DAY_IN_MILLIS = 1000 * 60 * 60 * 24;
     private static final int WEATHER_NOTIFICATION_ID = 3004;
 
+    private int mContadorRouteId = 0;
 
     private static final String[] NOTIFY_WEATHER_PROJECTION = new String[] {
             RouteContract.RouteEntry.COLUMN_DATE,
@@ -66,59 +64,15 @@ public class QuemedejesSyncAdapter extends AbstractThreadedSyncAdapter {
         
         Log.d(LOG_TAG, "Starting sync");
 
-        //TEST
-        long TEST_DATE = 1419033600L;
-        String city_init = "robledillo de gata";
-        String city_final = "ciudad rodrigo";
-        double lat_init = 147.353;
-        double lon_init = 64.7488;
-        double lat_final = 147.342;
-        double lon_final = 63.7488;
+        mContadorRouteId++;
+        //Create route values an insert in database
+        ContentValues routeValues = TestUtilities.createRouteValues(mContadorRouteId);
 
-        long locationId = addLocation(city_init,city_final,lat_init,lon_init,lat_final,lon_final);
+        Uri uriInsert = getContext().getContentResolver().insert(RouteContract.RouteEntry.CONTENT_URI, routeValues);
 
-        // OWM returns daily forecasts based upon the local time of the city that is being
-        // asked for, which means that we need to know the GMT offset to translate this data
-        // properly.
-        // Since this data is also sent in-order and the first day is always the
-        // current day, we're going to take advantage of that to get a nice
-        // normalized UTC date for all of our weather.
-        Time dayTime = new Time();
-        dayTime.setToNow();
-        // we start at the day returned by local time. Otherwise this is a mess.
-        int julianStartDay = Time.getJulianDay(System.currentTimeMillis(), dayTime.gmtoff);
-        // now we work exclusively in UTC
-        dayTime = new Time();
+        Log.d(LOG_TAG, "Sync Complete. " + uriInsert.getLastPathSegment() + " Inserted");
+        notifyRoute();
 
-        long day_delete_init = dayTime.setJulianDay(julianStartDay - 1);
-        
-        ContentValues routeValues = new ContentValues();
-        routeValues.put(RouteContract.RouteEntry.COLUMN_LOC_KEY, locationId);
-        routeValues.put(RouteContract.RouteEntry.COLUMN_DATE, Long.toString(dayTime.setJulianDay(julianStartDay)));
-        routeValues.put(RouteContract.RouteEntry.COLUMN_SHORT_DESC, "high");
-        routeValues.put(RouteContract.RouteEntry.COLUMN_DURATION_ROUTE, 60);
-        routeValues.put(RouteContract.RouteEntry.COLUMN_DISTANCE_ROUTE, 1800);
-
-        // Insert the new route information into the database
-        Vector<ContentValues> cVVector = new Vector<ContentValues>(routeValues.size());
-        cVVector.add(routeValues);
-
-        // add to database
-        if ( cVVector.size() > 0 ) {
-            ContentValues[] cvArray = new ContentValues[cVVector.size()];
-            cVVector.toArray(cvArray);
-            getContext().getContentResolver().bulkInsert(RouteContract.RouteEntry.CONTENT_URI, cvArray);
-
-            // delete old data so we don't build up an endless history
-            getContext().getContentResolver().delete(RouteContract.RouteEntry.CONTENT_URI,
-                    RouteContract.RouteEntry.COLUMN_DATE + " <= ?",
-                    new String[] {Long.toString(day_delete_init)});
-
-            notifyRoute();
-        }
-
-        Log.d(LOG_TAG, "Sync Complete. " + cVVector.size() + " Inserted");
-        
         return;
     }
     private void notifyRoute() {
@@ -201,59 +155,6 @@ public class QuemedejesSyncAdapter extends AbstractThreadedSyncAdapter {
                 cursor.close();
             }
         }
-    }
-    /**
-     * Helper method to handle insertion of a new location in the route database.
-     *
-     * @param cityNameInit The location string used to init route
-     * @param cityNameFinal A human-readable city name, e.g "Mountain View"
-     * @param lat_init the latitude of the city init
-     * @param lon_init the longitude of the city init
-     * @param lat_final the latitude of the city final
-     * @param lon_final the longitude of the city final
-     * @return the row ID of the added location.
-     */
-    long addLocation(String cityNameInit, String cityNameFinal, double lat_init, double lon_init,double lat_final, double lon_final) {
-        long locationId;
-
-        // First, check if the location with this city name exists in the db
-        Cursor locationCursor = getContext().getContentResolver().query(
-                RouteContract.LocationEntry.CONTENT_URI,
-                new String[]{RouteContract.LocationEntry._ID},
-                RouteContract.LocationEntry.COLUMN_CITY_NAME_INIT + " = ?",
-                new String[]{cityNameInit},
-                null);
-
-        if (locationCursor.moveToFirst()) {
-            int locationIdIndex = locationCursor.getColumnIndex(RouteContract.LocationEntry._ID);
-            locationId = locationCursor.getLong(locationIdIndex);
-        } else {
-            // Now that the content provider is set up, inserting rows of data is pretty simple.
-            // First create a ContentValues object to hold the data you want to insert.
-            ContentValues locationValues = new ContentValues();
-
-            // Then add the data, along with the corresponding name of the data type,
-            // so the content provider knows what kind of value is being inserted.
-            locationValues.put(RouteContract.LocationEntry.COLUMN_CITY_NAME_INIT, cityNameInit);
-            locationValues.put(RouteContract.LocationEntry.COLUMN_CITY_NAME_FINAL, cityNameFinal);
-            locationValues.put(RouteContract.LocationEntry.COLUMN_COORD_LAT_INIT, lat_init);
-            locationValues.put(RouteContract.LocationEntry.COLUMN_COORD_LONG_INIT, lon_init);
-            locationValues.put(RouteContract.LocationEntry.COLUMN_COORD_LAT_FINAL, lat_final);
-            locationValues.put(RouteContract.LocationEntry.COLUMN_COORD_LONG_FINAL, lon_final);
-
-            // Finally, insert location data into the database.
-            Uri insertedUri = getContext().getContentResolver().insert(
-                    RouteContract.LocationEntry.CONTENT_URI,
-                    locationValues
-            );
-
-            // The resulting URI contains the ID for the row.  Extract the locationId from the Uri.
-            locationId = ContentUris.parseId(insertedUri);
-        }
-
-        locationCursor.close();
-        // Wait, that worked?  Yes!
-        return locationId;
     }
 
 

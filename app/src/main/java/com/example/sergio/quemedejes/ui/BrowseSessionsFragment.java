@@ -57,15 +57,15 @@ public class BrowseSessionsFragment extends Fragment implements LoaderManager.Lo
             RouteContract.RouteEntry.COLUMN_DISTANCE_ROUTE,
             RouteContract.RouteEntry.COLUMN_IMG_URL,
 
-            RouteContract.LocationEntry.COLUMN_CITY_NAME_MEET,
-            RouteContract.LocationEntry.COLUMN_CITY_NAME_INIT,
-            RouteContract.LocationEntry.COLUMN_CITY_NAME_FINAL,
-            RouteContract.LocationEntry.COLUMN_COORD_LAT_INIT,
-            RouteContract.LocationEntry.COLUMN_COORD_LONG_INIT,
-            RouteContract.LocationEntry.COLUMN_COORD_LAT_FINAL,
-            RouteContract.LocationEntry.COLUMN_COORD_LONG_FINAL,
-            RouteContract.LocationEntry.COLUMN_COORD_LAT_MEET,
-            RouteContract.LocationEntry.COLUMN_COORD_LONG_MEET,
+            RouteContract.RouteEntry.COLUMN_CITY_NAME_MEET,
+            RouteContract.RouteEntry.COLUMN_CITY_NAME_INIT,
+            RouteContract.RouteEntry.COLUMN_CITY_NAME_FINAL,
+            RouteContract.RouteEntry.COLUMN_COORD_LAT_INIT,
+            RouteContract.RouteEntry.COLUMN_COORD_LONG_INIT,
+            RouteContract.RouteEntry.COLUMN_COORD_LAT_FINAL,
+            RouteContract.RouteEntry.COLUMN_COORD_LONG_FINAL,
+            RouteContract.RouteEntry.COLUMN_COORD_LAT_MEET,
+            RouteContract.RouteEntry.COLUMN_COORD_LONG_MEET,
     };
 
     // These indices are tied to FORECAST_COLUMNS.  If FORECAST_COLUMNS changes, these
@@ -247,7 +247,7 @@ public class BrowseSessionsFragment extends Fragment implements LoaderManager.Lo
         return new CursorLoader(getActivity(),
                 weatherForLocationUri,
                 FORECAST_COLUMNS,
-                null,
+                RouteContract.RouteEntry.COLUMN_DATE,
                 null,
                 sortOrder);
     }

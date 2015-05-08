@@ -6,7 +6,6 @@ import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 
 /**
@@ -20,23 +19,8 @@ public class RouteProvider extends ContentProvider {
 
     public static final int ROUTE = 100;
     public static final int ROUTE_WITH_ID = 101;
-    public static final int LOCATION = 300;
 
-    private static final SQLiteQueryBuilder sRouteByLocationSettingQueryBuilder;
 
-    static{
-        sRouteByLocationSettingQueryBuilder = new SQLiteQueryBuilder();
-
-        //This is an inner join which looks like
-        //weather INNER JOIN location ON weather.location_id = location._id
-        sRouteByLocationSettingQueryBuilder.setTables(
-                RouteContract.RouteEntry.TABLE_NAME + " INNER JOIN " +
-                        RouteContract.LocationEntry.TABLE_NAME +
-                        " ON " + RouteContract.RouteEntry.TABLE_NAME +
-                        "." + RouteContract.RouteEntry.COLUMN_LOC_KEY +
-                        " = " + RouteContract.LocationEntry.TABLE_NAME +
-                        "." + RouteContract.LocationEntry._ID);
-    }
 
     //route.date >= ?
     private static final String sRouteWithStartDateSelection =
@@ -47,30 +31,6 @@ public class RouteProvider extends ContentProvider {
     private static final String sRouteWithIdSelection =
             RouteContract.RouteEntry.TABLE_NAME+
                     "." + RouteContract.RouteEntry._ID + " = ? ";
-
-    private Cursor getRouteByAscDate(Uri uri, String[] projection, String sortOrder){
-        long actualTime = System.currentTimeMillis();
-        return sRouteByLocationSettingQueryBuilder.query(mOpenHelper.getReadableDatabase(),
-                projection,
-                sRouteWithStartDateSelection,
-                new String[]{Long.toString(actualTime)},
-                null,
-                null,
-                sortOrder
-        );
-    }
-
-    private Cursor getRouteById(Uri uri, String[] projection, String sortOrder ) {
-        String routeId = RouteContract.RouteEntry.getRouteIdFromUri(uri);
-        return sRouteByLocationSettingQueryBuilder.query(mOpenHelper.getReadableDatabase(),
-                projection,
-                sRouteWithIdSelection,
-                new String[]{routeId},
-                null,
-                null,
-                sortOrder
-        );
-    }
 
 
     /*  This UriMatcher willmatch each URI to the ROUTE, ROUTE_WITH_ID, ROUTE_SHORT_ASC,
@@ -88,7 +48,6 @@ public class RouteProvider extends ContentProvider {
         // For each type of URI you want to add, create a corresponding code.
         matcher.addURI(authority, RouteContract.PATH_ROUTE, ROUTE);
         matcher.addURI(authority, RouteContract.PATH_ROUTE + "/*", ROUTE_WITH_ID);
-        matcher.addURI(authority, RouteContract.PATH_LOCATION, LOCATION);
 
         return matcher;
     }
@@ -108,8 +67,6 @@ public class RouteProvider extends ContentProvider {
                 return RouteContract.RouteEntry.CONTENT_TYPE;
             case ROUTE_WITH_ID:
                 return RouteContract.RouteEntry.CONTENT_TYPE;
-            case LOCATION:
-                return RouteContract.LocationEntry.CONTENT_TYPE;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
@@ -126,43 +83,31 @@ public class RouteProvider extends ContentProvider {
             // "route"
             case ROUTE: {
 
-
-                //Parte muy cutre
-                if (selection != null){
-                    retCursor = getRouteByAscDate(uri, projection, sortOrder);
-                }
-                else {
-                    retCursor = mOpenHelper.getReadableDatabase().query(
-                            RouteContract.RouteEntry.TABLE_NAME,
-                            projection,
-                            selection,
-                            selectionArgs,
-                            null,
-                            null,
-                            sortOrder
-                    );
-                }
-
-                //////ARREGLAR ESTA PARTE ^
+                retCursor =  mOpenHelper.getReadableDatabase().query(
+                        RouteContract.RouteEntry.TABLE_NAME,
+                        projection,
+                        sRouteWithStartDateSelection,
+                        new String[]{Long.toString(System.currentTimeMillis())},
+                        null,
+                        null,
+                        sortOrder
+                );
 
                 break;
             }
             // "route with id"
             case ROUTE_WITH_ID: {
-                retCursor = getRouteById(uri, projection, sortOrder);
-                break;
-            }
-            // "location"
-            case LOCATION: {
+                String routeId = RouteContract.RouteEntry.getRouteIdFromUri(uri);
                 retCursor = mOpenHelper.getReadableDatabase().query(
-                        RouteContract.LocationEntry.TABLE_NAME,
+                        RouteContract.RouteEntry.TABLE_NAME,
                         projection,
-                        selection,
-                        selectionArgs,
+                        sRouteWithIdSelection,
+                        new String[]{routeId},
                         null,
                         null,
                         sortOrder
                 );
+
                 break;
             }
 
@@ -192,14 +137,6 @@ public class RouteProvider extends ContentProvider {
                     throw new android.database.SQLException("Failed to insert row into " + uri);
                 break;
             }
-            case LOCATION: {
-                long _id = db.insert(RouteContract.LocationEntry.TABLE_NAME, null, values);
-                if ( _id > 0 )
-                    returnUri = RouteContract.LocationEntry.buildLocationUri(_id);
-                else
-                    throw new android.database.SQLException("Failed to insert row into " + uri);
-                break;
-            }
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
         }
@@ -218,10 +155,6 @@ public class RouteProvider extends ContentProvider {
             case ROUTE:
                 rowsDeleted = db.delete(
                         RouteContract.RouteEntry.TABLE_NAME, selection, selectionArgs);
-                break;
-            case LOCATION:
-                rowsDeleted = db.delete(
-                        RouteContract.LocationEntry.TABLE_NAME, selection, selectionArgs);
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
@@ -252,10 +185,6 @@ public class RouteProvider extends ContentProvider {
             case ROUTE:
                 normalizeDate(values);
                 rowsUpdated = db.update(RouteContract.RouteEntry.TABLE_NAME, values, selection,
-                        selectionArgs);
-                break;
-            case LOCATION:
-                rowsUpdated = db.update(RouteContract.LocationEntry.TABLE_NAME, values, selection,
                         selectionArgs);
                 break;
             default:

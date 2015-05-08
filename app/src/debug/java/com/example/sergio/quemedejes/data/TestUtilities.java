@@ -1,17 +1,14 @@
 package com.example.sergio.quemedejes.data;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.ContentObserver;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.test.AndroidTestCase;
 
 import com.example.sergio.quemedejes.provider.RouteContract;
-import com.example.sergio.quemedejes.provider.RouteDbHelper;
 import com.example.sergio.quemedejes.utils.PollingCheck;
 
 import java.util.Map;
@@ -51,60 +48,30 @@ public class TestUtilities extends AndroidTestCase{
     /*
         Students: Use this to create some default Route values for your database tests.
      */
-    static ContentValues createRouteValues(long locationRowId) {
+    public static ContentValues createRouteValues(int route_id) {
 
         // Create a new map of values, where column names are the keys
         ContentValues routeValues = new ContentValues();
 
-        routeValues.put(RouteContract.RouteEntry.COLUMN_LOC_KEY, locationRowId);
+        routeValues.put(RouteContract.RouteEntry._ID, route_id);
+        //routeValues.put(RouteContract.RouteEntry.COLUMN_NAME_ROUTE, TEST_ROUTE_NAME);
         routeValues.put(RouteContract.RouteEntry.COLUMN_DATE, TEST_DATE);
         routeValues.put(RouteContract.RouteEntry.COLUMN_SHORT_DESC, "baja");
         routeValues.put(RouteContract.RouteEntry.COLUMN_DURATION_ROUTE, 147.353);
         routeValues.put(RouteContract.RouteEntry.COLUMN_DISTANCE_ROUTE, 64.7488);
         routeValues.put(RouteContract.RouteEntry.COLUMN_IMG_URL, "https://www.youtube.com/watch?v=jcwEJKazq0I&index=2&list=RDMMlAzHvsTolQ0");
-        //routeValues.put(RouteContract.RouteEntry.COLUMN_NAME_ROUTE, TEST_ROUTE_NAME);
+        routeValues.put(RouteContract.RouteEntry.COLUMN_CITY_NAME_MEET, TEST_LOCATION_MEET);
+        routeValues.put(RouteContract.RouteEntry.COLUMN_CITY_NAME_INIT, TEST_LOCATION_INIT);
+        routeValues.put(RouteContract.RouteEntry.COLUMN_CITY_NAME_FINAL, TEST_LOCATION_FINAL);
+        routeValues.put(RouteContract.RouteEntry.COLUMN_COORD_LAT_INIT, -147.353);
+        routeValues.put(RouteContract.RouteEntry.COLUMN_COORD_LONG_INIT, 64.7488);
+        routeValues.put(RouteContract.RouteEntry.COLUMN_COORD_LAT_FINAL, -146.353);
+        routeValues.put(RouteContract.RouteEntry.COLUMN_COORD_LONG_FINAL, 64.7488);
+        routeValues.put(RouteContract.RouteEntry.COLUMN_COORD_LAT_MEET, -145.353);
+        routeValues.put(RouteContract.RouteEntry.COLUMN_COORD_LONG_MEET, 64.7488);
 
         return routeValues;
 
-    }
-
-    /*
-        Students: You can uncomment this helper function once you have finished creating the
-        LocationEntry part of the RouteContract.
-     */
-    static ContentValues createNorthPoleLocationValues() {
-        // Create a new map of values, where column names are the keys
-        ContentValues testValues = new ContentValues();
-        testValues.put(RouteContract.LocationEntry.COLUMN_CITY_NAME_MEET, TEST_LOCATION_MEET);
-        testValues.put(RouteContract.LocationEntry.COLUMN_CITY_NAME_INIT, TEST_LOCATION_INIT);
-        testValues.put(RouteContract.LocationEntry.COLUMN_CITY_NAME_FINAL, TEST_LOCATION_FINAL);
-        testValues.put(RouteContract.LocationEntry.COLUMN_COORD_LAT_INIT, -147.353);
-        testValues.put(RouteContract.LocationEntry.COLUMN_COORD_LONG_INIT, 64.7488);
-        testValues.put(RouteContract.LocationEntry.COLUMN_COORD_LAT_FINAL, -146.353);
-        testValues.put(RouteContract.LocationEntry.COLUMN_COORD_LONG_FINAL, 64.7488);
-        testValues.put(RouteContract.LocationEntry.COLUMN_COORD_LAT_MEET, -145.353);
-        testValues.put(RouteContract.LocationEntry.COLUMN_COORD_LONG_MEET, 64.7488);
-
-        return testValues;
-    }
-
-    /*
-    Students: You can uncomment this function once you have finished creating the
-    LocationEntry part of the RouteContract as well as the RouteDbHelper.
- */
-    static long insertNorthPoleLocationValues(Context context) {
-        // insert our test records into the database
-        RouteDbHelper dbHelper = new RouteDbHelper(context);
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        ContentValues testValues = TestUtilities.createNorthPoleLocationValues();
-
-        long locationRowId;
-        locationRowId = db.insert(RouteContract.LocationEntry.TABLE_NAME, null, testValues);
-
-        // Verify we got a row back.
-        assertTrue("Error: Failure to insert North Pole Location Values", locationRowId != -1);
-
-        return locationRowId;
     }
 
     /*

@@ -27,7 +27,6 @@ public class RouteContract {
     // as the ContentProvider hasn't been given any information on what to do with "givemeroot".
     // At least, let's hope not.  Don't be that dev, reader.  Don't be that dev.
     public static final String PATH_ROUTE = "route";
-    public static final String PATH_LOCATION = "location";
 
     // To make it easy to query for the exact date, we normalize all dates that go into
     // the database to the start of the the Julian day at UTC.
@@ -39,38 +38,6 @@ public class RouteContract {
         return time.setJulianDay(julianDay);
     }
 
-    /* Inner class that defines the table contents of the location table */
-    public static final class LocationEntry implements BaseColumns {
-
-        public static final Uri CONTENT_URI =
-                BASE_CONTENT_URI.buildUpon().appendPath(PATH_LOCATION).build();
-
-        public static final String CONTENT_TYPE =
-                ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_LOCATION;
-        public static final String CONTENT_ITEM_TYPE =
-                ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_LOCATION;
-
-        // Table name
-        public static final String TABLE_NAME = "location";
-
-        // Human readable location string, provided by the API.
-        public static final String COLUMN_CITY_NAME_MEET = "city_name_meet";
-        public static final String COLUMN_CITY_NAME_INIT = "city_name_init";
-        public static final String COLUMN_CITY_NAME_FINAL = "city_name_final";
-
-        // In order to uniquely pinpoint the location on the map when we launch the
-        // map intent, we store the latitude and longitude as returned by openweathermap.
-        public static final String COLUMN_COORD_LAT_MEET = "coord_lat_meet";
-        public static final String COLUMN_COORD_LONG_MEET = "coord_long_meet";
-        public static final String COLUMN_COORD_LAT_INIT = "coord_lat_init";
-        public static final String COLUMN_COORD_LONG_INIT = "coord_long_init";
-        public static final String COLUMN_COORD_LAT_FINAL = "coord_lat_final";
-        public static final String COLUMN_COORD_LONG_FINAL = "coord_long_final";
-
-        public static Uri buildLocationUri(long id) {
-            return ContentUris.withAppendedId(CONTENT_URI, id);
-        }
-    }
 
     /* Inner class that defines the table contents of the route table */
     public static final class RouteEntry implements BaseColumns {
@@ -99,6 +66,20 @@ public class RouteContract {
         public static final String COLUMN_DISTANCE_ROUTE = "distance_route";
         // Image url
         public static final String COLUMN_IMG_URL = "img_url";
+
+        // Human readable location string, provided by the API.
+        public static final String COLUMN_CITY_NAME_MEET = "city_name_meet";
+        public static final String COLUMN_CITY_NAME_INIT = "city_name_init";
+        public static final String COLUMN_CITY_NAME_FINAL = "city_name_final";
+
+        // In order to uniquely pinpoint the location on the map when we launch the
+        // map intent, we store the latitude and longitude as returned by openweathermap.
+        public static final String COLUMN_COORD_LAT_MEET = "coord_lat_meet";
+        public static final String COLUMN_COORD_LONG_MEET = "coord_long_meet";
+        public static final String COLUMN_COORD_LAT_INIT = "coord_lat_init";
+        public static final String COLUMN_COORD_LONG_INIT = "coord_long_init";
+        public static final String COLUMN_COORD_LAT_FINAL = "coord_lat_final";
+        public static final String COLUMN_COORD_LONG_FINAL = "coord_long_final";
 
 
         public static Uri buildRouteUri(long id) {
