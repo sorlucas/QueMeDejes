@@ -65,7 +65,7 @@ public class BrowseSessionsFragment extends Fragment implements LoaderManager.Lo
             RouteContract.RouteEntry.COLUMN_COORD_LONG_FINAL,
             RouteContract.RouteEntry.COLUMN_COORD_LAT_MEET,
             RouteContract.RouteEntry.COLUMN_COORD_LONG_MEET,
-            //RouteContract.RouteEntry.COLUMN_NAME_ROUTE,
+            RouteContract.RouteEntry.COLUMN_NAME_ROUTE,
     };
 
     // These indices are tied to FORECAST_COLUMNS.  If FORECAST_COLUMNS changes, these
@@ -85,7 +85,7 @@ public class BrowseSessionsFragment extends Fragment implements LoaderManager.Lo
     static final int COL_LONG_FINAL = 12;
     static final int COL_LAT_MEET = 13;
     static final int COL_LONG_MEET = 14;
-    //static final int COL_NAME_ROUTE = 15;
+    static final int COL_NAME_ROUTE = 15;
 
     /**
      * A callback interface that all activities containing this fragment must

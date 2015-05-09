@@ -130,7 +130,6 @@ public class RouteProvider extends ContentProvider {
 
         switch (match) {
             case ROUTE: {
-                normalizeDate(values);
                 long _id = db.insert(RouteContract.RouteEntry.TABLE_NAME, null, values);
                 if ( _id > 0 )
                     returnUri = RouteContract.RouteEntry.buildRouteUri(_id);
@@ -167,14 +166,6 @@ public class RouteProvider extends ContentProvider {
         return rowsDeleted;
     }
 
-    private void normalizeDate(ContentValues values) {
-        // normalize the date value
-        if (values.containsKey(RouteContract.RouteEntry.COLUMN_DATE)) {
-            long dateValue = values.getAsLong(RouteContract.RouteEntry.COLUMN_DATE);
-            values.put(RouteContract.RouteEntry.COLUMN_DATE, RouteContract.normalizeDate(dateValue));
-        }
-    }
-
     @Override
     public int update(
             Uri uri, ContentValues values, String selection, String[] selectionArgs) {
@@ -184,7 +175,6 @@ public class RouteProvider extends ContentProvider {
 
         switch (match) {
             case ROUTE:
-                normalizeDate(values);
                 rowsUpdated = db.update(RouteContract.RouteEntry.TABLE_NAME, values, selection,
                         selectionArgs);
                 break;

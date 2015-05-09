@@ -63,12 +63,13 @@ public class QuemedejesSyncAdapter extends AbstractThreadedSyncAdapter {
         Log.d(LOG_TAG, "Starting sync");
 
         //Create route values today an insert in database
-        ContentValues routeValuesToday = TestUtilities.createRouteValuesToday();
+        ContentValues routeValuesToday = TestUtilities.createRouteValuesToday(System.currentTimeMillis() + 3600000);
         Uri uriInsertToday = getContext().getContentResolver().insert(RouteContract.RouteEntry.CONTENT_URI, routeValuesToday);
         Log.d(LOG_TAG, "Sync Complete. " + uriInsertToday.getLastPathSegment() + " Inserted");
 
+
         //Create route values an insert in database
-        ContentValues routeValuesFuture = TestUtilities.createRouteValuesFuture();
+        ContentValues routeValuesFuture = TestUtilities.createRouteValuesFuture(System.currentTimeMillis() + 86400000);
         Uri uriInsertFuture = getContext().getContentResolver().insert(RouteContract.RouteEntry.CONTENT_URI, routeValuesFuture);
         Log.d(LOG_TAG, "Sync Complete. " + uriInsertFuture.getLastPathSegment() + " Inserted");
 

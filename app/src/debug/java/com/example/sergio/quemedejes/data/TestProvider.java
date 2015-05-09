@@ -140,7 +140,7 @@ public class TestProvider extends AndroidTestCase {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         // Fantastic.  Now that we have a location, add some weather!
-        ContentValues routeValues = TestUtilities.createRouteValuesToday();
+        ContentValues routeValues = TestUtilities.createRouteValuesToday(System.currentTimeMillis() + 36000000);
 
         long weatherRowId = db.insert(RouteEntry.TABLE_NAME, null, routeValues);
         assertTrue("Unable to Insert RouteEntry into the Database", weatherRowId != -1);
@@ -169,7 +169,7 @@ public class TestProvider extends AndroidTestCase {
     public void testInsertReadProvider() {
 
         // Fantastic.  Now that we have a location, add some weather!
-        ContentValues routeValues = TestUtilities.createRouteValuesToday();
+        ContentValues routeValues = TestUtilities.createRouteValuesToday(System.currentTimeMillis() + 36000000);
         // The TestContentObserver is a one-shot class
         TestUtilities.TestContentObserver tco = TestUtilities.getTestContentObserver();
 

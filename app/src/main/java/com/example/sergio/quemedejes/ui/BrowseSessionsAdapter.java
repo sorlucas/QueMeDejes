@@ -28,22 +28,26 @@ public class BrowseSessionsAdapter extends CursorAdapter {
      * Cache of the children views for a forecast list item.
      */
     public static class ViewHolder {
-        public final ImageView iconView;
+        public final ImageView imageMap;
+        public final ImageView imageShortDesc;
         public final TextView dateView;
         public final TextView descriptionView;
         public final TextView distanceRoute;
         public final TextView durationRoute;
         public final TextView cityNameInit;
-        public final TextView cityNameFinal;
+        public final TextView nameRoute;
+        public final TextView informationWeather;
 
         public ViewHolder(View view) {
-            iconView = (ImageView) view.findViewById(R.id.list_item_icon);
-            dateView = (TextView) view.findViewById(R.id.list_item_date_textview);
-            descriptionView = (TextView) view.findViewById(R.id.list_item_forecast_textview);
-            distanceRoute = (TextView) view.findViewById(R.id.list_item_high_textview);
-            durationRoute = (TextView) view.findViewById(R.id.list_item_low_textview);
-            cityNameInit = (TextView) view.findViewById(R.id.list_item_city_init_textview);
-            cityNameFinal = (TextView) view.findViewById(R.id.list_item_city_final_textview);
+            imageMap = (ImageView) view.findViewById(R.id.image_map_imageview);
+            imageShortDesc = (ImageView) view.findViewById(R.id.image_shor_desc);
+            dateView = (TextView) view.findViewById(R.id.date_route_textview);
+            descriptionView = (TextView) view.findViewById(R.id.route_short_desc_textview);
+            distanceRoute = (TextView) view.findViewById(R.id.distance_route_textview);
+            durationRoute = (TextView) view.findViewById(R.id.duration_route_textview);
+            cityNameInit = (TextView) view.findViewById(R.id.name_city_init_textview);
+            nameRoute = (TextView) view.findViewById(R.id.name_route_textview);
+            informationWeather = (TextView) view.findViewById(R.id.information_weather_textview);
         }
     }
 
@@ -84,26 +88,40 @@ public class BrowseSessionsAdapter extends CursorAdapter {
         switch (viewType) {
             case VIEW_TYPE_TODAY: {
                 // Get weather icon
-                viewHolder.iconView.setImageResource(Utility.getArtResourceForRouteCondition(
+                viewHolder.imageShortDesc.setImageResource(Utility.getArtResourceForRouteCondition(
                         cursor.getString(BrowseSessionsFragment.COL_ROUTE_SHORT_DESC)));
                 break;
             }
             case VIEW_TYPE_FUTURE_DAY: {
                 // Get weather icon
-                viewHolder.iconView.setImageResource(Utility.getIconResourceForRouteCondition(
+                viewHolder.imageShortDesc.setImageResource(Utility.getIconResourceForRouteCondition(
                         cursor.getString(BrowseSessionsFragment.COL_ROUTE_SHORT_DESC)));
                 break;
             }
         }
 
+        // Read name route from cursor
+        String nameRoute = cursor.getString(BrowseSessionsFragment.COL_NAME_ROUTE);
+        viewHolder.nameRoute.setText(nameRoute);
+
+        // Read city name init from cursor
+        String cityNameInit = cursor.getString(BrowseSessionsFragment.COL_CITY_INIT);
+        viewHolder.cityNameInit.setText(cityNameInit);
+
         // Read date from cursor
         long dateInMillis = cursor.getLong(BrowseSessionsFragment.COL_ROUTE_DATE);
-        // Find TextView and set formatted date on it
         viewHolder.dateView.setText(Utility.getFriendlyDayString(context, dateInMillis));
+
+        /* FUTURE IMPLEMENTATION
+        // Read informationWeather from Cursor
+        String informationWeather = cursor.getString(COL_WEATHER_ROUTE);
+        */
+
+        // FUTURE IMPLEMENTATION ADD REAL PHOTO
+        viewHolder.imageMap.setContentDescription(nameRoute);
 
         String description = cursor.getString(BrowseSessionsFragment.COL_ROUTE_SHORT_DESC);
         viewHolder.descriptionView.setText(description);
-        viewHolder.iconView.setContentDescription(description);
 
         // Read distance from cursor
         double distance = cursor.getDouble(BrowseSessionsFragment.COL_ROUTE_DISTANCE);
@@ -113,9 +131,9 @@ public class BrowseSessionsAdapter extends CursorAdapter {
         double duration = cursor.getDouble(BrowseSessionsFragment.COL_ROUTE_DURATION);
         viewHolder.durationRoute.setText(String.valueOf(duration));
 
-        // Read city name init from cursor
-        String cityNameInit = cursor.getString(BrowseSessionsFragment.COL_CITY_INIT);
-        viewHolder.cityNameInit.setText(String.valueOf(cityNameInit));
+        // Read shor_desc from cursor
+        String shorDesc = cursor.getString(BrowseSessionsFragment.COL_ROUTE_SHORT_DESC);
+        viewHolder.descriptionView.setText(shorDesc);
 
 
     }

@@ -6,86 +6,159 @@
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
     android:minHeight="?android:attr/listPreferredItemHeight"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:background="@drawable/touch_selector">
 
-    <FrameLayout
-        android:layout_width="60dp"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/list_item_icon"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-    </FrameLayout>
-
     <LinearLayout
-        android:layout_height="wrap_content"
-        android:layout_width="0dp"
-        android:layout_weight="7"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/name_route_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed"
+                android:textSize="20sp"
+                android:text="La subida a la golosa"/>
+
+            <TextView
+                android:id="@+id/name_city_init_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed"
+                android:textSize="20sp"
+                android:text="Robledillo de gata"/>
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/list_item_date_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/date_route_textview"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:fontFamily="sans-serif-condensed"
-            android:textSize="20sp"/>
+            android:textAppearance="?android:textAppearanceLarge"
+            android:text="sab may 09"
+            android:layout_weight="2"
+            android:gravity="center" />
 
-        <TextView
-            android:id="@+id/list_item_forecast_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-condensed"
-            android:textAppearance="?android:textAppearanceSmall"/>
     </LinearLayout>
 
+
     <LinearLayout
-        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
         android:layout_weight="5"
-        android:layout_gravity="center"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/list_item_high_textview"
+        <FrameLayout
+            android:layout_width="160dp"
+            android:layout_height="160dp">
+            <ImageView
+                android:id="@+id/image_map_imageview"
+                android:layout_width="121dp"
+                android:layout_height="121dp"
+                android:src="@drawable/screenshot_route_map"
+                android:adjustViewBounds="true"
+                android:layout_gravity="center"
+                android:scaleType="fitXY"
+                android:cropToPadding="false"
+                android:focusableInTouchMode="false" />
+        </FrameLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:fontFamily="sans-serif-condensed"
-            android:textAppearance="?android:textAppearanceLarge"/>
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/list_item_low_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="sans-serif-condensed"
-            android:textAppearance="?android:textAppearanceSmall"/>
+            <View xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_marginBottom="8dp"
+                android:gravity="start|center_vertical"
+                android:layout_width="match_parent"
+                android:background="#e5e5e5"
+                android:layout_height="1dp" />
+            <TextView
+                android:id="@+id/information_weather_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="DaTos Meteorologico ajdsfkajdsklf klsadjfkjsdalkflkdsajkfsdjakfjkdsaj fksdajfkjds fkdsj lkdsj"/>
+
+            <View xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="start|center_vertical"
+                android:layout_width="match_parent"
+                android:background="#e5e5e5"
+                android:layout_height="1dp" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/image_shor_desc"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_medium_route"
+                        android:adjustViewBounds="true"
+                        android:layout_gravity="center"
+                        android:scaleType="fitXY"
+                        android:cropToPadding="false"
+                        android:focusableInTouchMode="false" />
+
+                    <TextView
+                        android:id="@+id/route_short_desc_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-condensed"
+                        android:textAppearance="?android:textAppearanceSmall"
+                        android:text="Dificultad baja"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center">
+
+                    <TextView
+                        android:id="@+id/distance_route_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="sans-serif-condensed"
+                        android:textAppearance="?android:textAppearanceSmall"
+                        android:text="2200 (m)"/>
+
+                    <TextView
+                        android:id="@+id/duration_route_textview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:fontFamily="sans-serif-condensed"
+                        android:textAppearance="?android:textAppearanceSmall"
+                        android:text="3h y 45 min"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="7"
-        android:layout_gravity="center"
-        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/list_item_city_init_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="sans-serif-condensed"
-            android:textAppearance="?android:textAppearanceLarge"/>
 
-        <TextView
-            android:id="@+id/list_item_city_final_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="sans-serif-condensed"
-            android:textAppearance="?android:textAppearanceSmall"/>
-    </LinearLayout>
 </LinearLayout>

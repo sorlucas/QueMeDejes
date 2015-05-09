@@ -39,14 +39,14 @@ public class TestUtilities extends AndroidTestCase{
         }
     }
 
-    public static ContentValues createRouteValuesToday() {
+    public static ContentValues createRouteValuesToday(long date) {
 
         // Create a new map of values, where column names are the keys
         ContentValues routeValues = new ContentValues();
 
         Random rand = new Random();
         routeValues.put(RouteContract.RouteEntry._ID, rand.nextInt(10000) );
-        routeValues.put(RouteContract.RouteEntry.COLUMN_DATE, System.currentTimeMillis() + 3600000);
+        routeValues.put(RouteContract.RouteEntry.COLUMN_DATE, date);
         routeValues.put(RouteContract.RouteEntry.COLUMN_SHORT_DESC, "low");
         routeValues.put(RouteContract.RouteEntry.COLUMN_DURATION_ROUTE, 15);
         routeValues.put(RouteContract.RouteEntry.COLUMN_DISTANCE_ROUTE, 1500);
@@ -65,14 +65,14 @@ public class TestUtilities extends AndroidTestCase{
 
     }
 
-    public static ContentValues createRouteValuesFuture() {
+    public static ContentValues createRouteValuesFuture(long date) {
 
         // Create a new map of values, where column names are the keys
         ContentValues routeValues = new ContentValues();
 
         Random rand = new Random();
         routeValues.put(RouteContract.RouteEntry._ID, rand.nextInt(10000) );
-        routeValues.put(RouteContract.RouteEntry.COLUMN_DATE, System.currentTimeMillis() + 86400000);
+        routeValues.put(RouteContract.RouteEntry.COLUMN_DATE, date);
         routeValues.put(RouteContract.RouteEntry.COLUMN_SHORT_DESC, "high");
         routeValues.put(RouteContract.RouteEntry.COLUMN_DURATION_ROUTE, 39);
         routeValues.put(RouteContract.RouteEntry.COLUMN_DISTANCE_ROUTE, 2500);
