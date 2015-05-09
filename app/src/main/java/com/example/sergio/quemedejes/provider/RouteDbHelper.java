@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class RouteDbHelper extends SQLiteOpenHelper {
 
     // If you change the database schema, you must increment the database version.
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 11;
 
     public static final String DATABASE_NAME = "route.db";
 
@@ -29,11 +29,9 @@ public class RouteDbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 
-        final String SQL_CREATE_ROUTE_TABLE = "CREATE TABLE " + RouteEntry.TABLE_NAME + " (" +
+        final String SQL_CREATE_ROUTE_TABLE = "CREATE TABLE IF NOT EXISTS " + RouteEntry.TABLE_NAME + " (" +
 
                 RouteEntry._ID + " INTEGER PRIMARY KEY NOT NULL," +
-
-                //RouteEntry.COLUMN_NAME_ROUTE + "TEXT NOT NULL, " +
                 RouteEntry.COLUMN_DATE + " INTEGER NOT NULL, " +
                 RouteEntry.COLUMN_SHORT_DESC + " TEXT NOT NULL, " +
                 RouteEntry.COLUMN_DURATION_ROUTE + " REAL NOT NULL, " +
@@ -48,10 +46,9 @@ public class RouteDbHelper extends SQLiteOpenHelper {
                 RouteEntry.COLUMN_COORD_LONG_FINAL + " REAL NOT NULL, " +
                 RouteEntry.COLUMN_COORD_LAT_MEET + " REAL NOT NULL, " +
                 RouteEntry.COLUMN_COORD_LONG_MEET + " REAL NOT NULL, " +
+                RouteEntry.COLUMN_NAME_ROUTE + " TEXT NOT NULL, "  +
 
-                // To assure the application have just one weather entry per day
-                // per location, it's created a UNIQUE constraint with REPLACE strategy
-                " UNIQUE (" + RouteEntry._ID + ") ON CONFLICT REPLACE);";
+                "UNIQUE (" + RouteEntry._ID + ") ON CONFLICT REPLACE);";
 
         sqLiteDatabase.execSQL(SQL_CREATE_ROUTE_TABLE);
     }
@@ -68,6 +65,7 @@ public class RouteDbHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
+    //Helper method to Browse Database
     public ArrayList<Cursor> getData(String Query){
         //get writable database
         SQLiteDatabase sqlDB = this.getWritableDatabase();

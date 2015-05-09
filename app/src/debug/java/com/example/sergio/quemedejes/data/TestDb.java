@@ -31,7 +31,7 @@ public class TestDb extends AndroidTestCase {
     /*
         Students:  Here is where you will build code to test that we can insert and query the
         database.  We've done a lot of work for you.  You'll want to look in TestUtilities
-        where you can use the "createRouteValues" function.  You can
+        where you can use the "createRouteValuesToday" function.  You can
         also make use of the validateCurrentRecord function from within TestUtilities.
      */
     public void testRouteTable() {
@@ -51,7 +51,7 @@ public class TestDb extends AndroidTestCase {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         // Second Step (Route): Create Route values
-        ContentValues routeValues  = TestUtilities.createRouteValues(1);
+        ContentValues routeValues  = TestUtilities.createRouteValuesToday();
 
         // Third Step (Route): Insert ContentValues into database and get a row ID back
         long routeRowId = db.insert(RouteContract.RouteEntry.TABLE_NAME, null, routeValues);

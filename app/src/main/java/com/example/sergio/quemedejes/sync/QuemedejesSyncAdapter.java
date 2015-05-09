@@ -35,12 +35,10 @@ public class QuemedejesSyncAdapter extends AbstractThreadedSyncAdapter {
     public final String LOG_TAG = QuemedejesSyncAdapter.class.getSimpleName();
     // Interval at which to sync with the weather, in seconds.
     // 60 seconds (1 minute) * 180 = 3 hours
-    public static final int SYNC_INTERVAL = 10;
+    public static final int SYNC_INTERVAL = 120;
     public static final int SYNC_FLEXTIME = SYNC_INTERVAL/3;
     private static final long DAY_IN_MILLIS = 1000 * 60 * 60 * 24;
     private static final int WEATHER_NOTIFICATION_ID = 3004;
-
-    private int mContadorRouteId = 0;
 
     private static final String[] NOTIFY_WEATHER_PROJECTION = new String[] {
             RouteContract.RouteEntry.COLUMN_DATE,
@@ -64,13 +62,16 @@ public class QuemedejesSyncAdapter extends AbstractThreadedSyncAdapter {
         
         Log.d(LOG_TAG, "Starting sync");
 
-        mContadorRouteId++;
+        //Create route values today an insert in database
+        ContentValues routeValuesToday = TestUtilities.createRouteValuesToday();
+        Uri uriInsertToday = getContext().getContentResolver().insert(RouteContract.RouteEntry.CONTENT_URI, routeValuesToday);
+        Log.d(LOG_TAG, "Sync Complete. " + uriInsertToday.getLastPathSegment() + " Inserted");
+
         //Create route values an insert in database
-        ContentValues routeValues = TestUtilities.createRouteValues(mContadorRouteId);
+        ContentValues routeValuesFuture = TestUtilities.createRouteValuesFuture();
+        Uri uriInsertFuture = getContext().getContentResolver().insert(RouteContract.RouteEntry.CONTENT_URI, routeValuesFuture);
+        Log.d(LOG_TAG, "Sync Complete. " + uriInsertFuture.getLastPathSegment() + " Inserted");
 
-        Uri uriInsert = getContext().getContentResolver().insert(RouteContract.RouteEntry.CONTENT_URI, routeValues);
-
-        Log.d(LOG_TAG, "Sync Complete. " + uriInsert.getLastPathSegment() + " Inserted");
         notifyRoute();
 
         return;

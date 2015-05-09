@@ -16,6 +16,7 @@ import com.example.sergio.quemedejes.util.Utility;
  * Created by sergio on 3/05/15.
  */
 public class BrowseSessionsAdapter extends CursorAdapter {
+
     private static final int VIEW_TYPE_COUNT = 2;
     private static final int VIEW_TYPE_TODAY = 0;
     private static final int VIEW_TYPE_FUTURE_DAY = 1;
@@ -100,12 +101,8 @@ public class BrowseSessionsAdapter extends CursorAdapter {
         // Find TextView and set formatted date on it
         viewHolder.dateView.setText(Utility.getFriendlyDayString(context, dateInMillis));
 
-        // Read weather forecast from cursor
         String description = cursor.getString(BrowseSessionsFragment.COL_ROUTE_SHORT_DESC);
-        // Find TextView and set weather forecast on it
         viewHolder.descriptionView.setText(description);
-
-        // For accessibility, add a content description to the icon field
         viewHolder.iconView.setContentDescription(description);
 
         // Read distance from cursor
@@ -119,10 +116,6 @@ public class BrowseSessionsAdapter extends CursorAdapter {
         // Read city name init from cursor
         String cityNameInit = cursor.getString(BrowseSessionsFragment.COL_CITY_INIT);
         viewHolder.cityNameInit.setText(String.valueOf(cityNameInit));
-
-        // Read city name final from cursor
-        String cityNameFinal = cursor.getString(BrowseSessionsFragment.COL_CITY_FINAL);
-        viewHolder.cityNameFinal.setText(String.valueOf(cityNameFinal));
 
 
     }

@@ -50,7 +50,6 @@ public class BrowseSessionsFragment extends Fragment implements LoaderManager.Lo
             // using the location set by the user, which is only in the Location table.
             // So the convenience is worth it.
             RouteContract.RouteEntry.TABLE_NAME + "." + RouteContract.RouteEntry._ID,
-            //RouteContract.RouteEntry.COLUMN_NAME_ROUTE,
             RouteContract.RouteEntry.COLUMN_DATE,
             RouteContract.RouteEntry.COLUMN_SHORT_DESC,
             RouteContract.RouteEntry.COLUMN_DURATION_ROUTE,
@@ -66,26 +65,27 @@ public class BrowseSessionsFragment extends Fragment implements LoaderManager.Lo
             RouteContract.RouteEntry.COLUMN_COORD_LONG_FINAL,
             RouteContract.RouteEntry.COLUMN_COORD_LAT_MEET,
             RouteContract.RouteEntry.COLUMN_COORD_LONG_MEET,
+            //RouteContract.RouteEntry.COLUMN_NAME_ROUTE,
     };
 
     // These indices are tied to FORECAST_COLUMNS.  If FORECAST_COLUMNS changes, these
     // must change.
     static final int COL_ROUTE_ID = 0;
-    static final int COL_NAME_ROUTE = 1;
-    static final int COL_ROUTE_DATE = 2;
-    static final int COL_ROUTE_SHORT_DESC = 3;
-    static final int COL_ROUTE_DURATION = 4;
-    static final int COL_ROUTE_DISTANCE = 5;
-    static final int COL_ROUTE_IMG_URL = 6;
-    static final int COL_CITY_MEET = 7;
-    static final int COL_CITY_INIT = 8;
-    static final int COL_CITY_FINAL = 9;
-    static final int COL_LAT_INIT = 10;
-    static final int COL_LONG_INIT = 11;
-    static final int COL_LAT_FINAL = 12;
-    static final int COL_LONG_FINAL = 13;
-    static final int COL_LAT_MEET = 14;
-    static final int COL_LONG_MEET = 15;
+    static final int COL_ROUTE_DATE = 1;
+    static final int COL_ROUTE_SHORT_DESC = 2;
+    static final int COL_ROUTE_DURATION = 3;
+    static final int COL_ROUTE_DISTANCE = 4;
+    static final int COL_ROUTE_IMG_URL = 5;
+    static final int COL_CITY_MEET = 6;
+    static final int COL_CITY_INIT = 7;
+    static final int COL_CITY_FINAL = 8;
+    static final int COL_LAT_INIT = 9;
+    static final int COL_LONG_INIT = 10;
+    static final int COL_LAT_FINAL = 11;
+    static final int COL_LONG_FINAL = 12;
+    static final int COL_LAT_MEET = 13;
+    static final int COL_LONG_MEET = 14;
+    //static final int COL_NAME_ROUTE = 15;
 
     /**
      * A callback interface that all activities containing this fragment must
@@ -174,7 +174,7 @@ public class BrowseSessionsFragment extends Fragment implements LoaderManager.Lo
             mPosition = savedInstanceState.getInt(SELECTED_KEY);
         }
 
-        mBrowseSessionsAdapter.setUseTodayLayout(mUseTodayLayout);
+        mBrowseSessionsAdapter.setUseTodayLayout(true);
 
         return rootView;
     }

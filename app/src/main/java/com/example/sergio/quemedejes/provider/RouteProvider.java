@@ -83,6 +83,7 @@ public class RouteProvider extends ContentProvider {
             // "route"
             case ROUTE: {
 
+
                 retCursor =  mOpenHelper.getReadableDatabase().query(
                         RouteContract.RouteEntry.TABLE_NAME,
                         projection,

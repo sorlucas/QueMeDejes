@@ -12,19 +12,13 @@ import com.example.sergio.quemedejes.provider.RouteContract;
 import com.example.sergio.quemedejes.utils.PollingCheck;
 
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 /**
  * Created by sergio on 28/04/15.
  */
 public class TestUtilities extends AndroidTestCase{
-
-    static final long TEST_ROUTE_ID = 123;
-    static final String TEST_ROUTE_NAME = "El descenso de Robledillo";
-    static final String TEST_LOCATION_MEET = "puebla de azaba";
-    static final String TEST_LOCATION_INIT = "robledillo de gata";
-    static final String TEST_LOCATION_FINAL = "ciudad rodrigo";
-    static final long TEST_DATE = System.currentTimeMillis() + 100000000;  // December 20th, 2014
 
     static void validateCursor(String error, Cursor valueCursor, ContentValues expectedValues) {
         assertTrue("Empty cursor returned. " + error, valueCursor.moveToFirst());
@@ -45,35 +39,58 @@ public class TestUtilities extends AndroidTestCase{
         }
     }
 
-    /*
-        Students: Use this to create some default Route values for your database tests.
-     */
-    public static ContentValues createRouteValues(int route_id) {
+    public static ContentValues createRouteValuesToday() {
 
         // Create a new map of values, where column names are the keys
         ContentValues routeValues = new ContentValues();
 
-        routeValues.put(RouteContract.RouteEntry._ID, route_id);
-        //routeValues.put(RouteContract.RouteEntry.COLUMN_NAME_ROUTE, TEST_ROUTE_NAME);
-        routeValues.put(RouteContract.RouteEntry.COLUMN_DATE, TEST_DATE);
-        routeValues.put(RouteContract.RouteEntry.COLUMN_SHORT_DESC, "baja");
-        routeValues.put(RouteContract.RouteEntry.COLUMN_DURATION_ROUTE, 147.353);
-        routeValues.put(RouteContract.RouteEntry.COLUMN_DISTANCE_ROUTE, 64.7488);
+        Random rand = new Random();
+        routeValues.put(RouteContract.RouteEntry._ID, rand.nextInt(10000) );
+        routeValues.put(RouteContract.RouteEntry.COLUMN_DATE, System.currentTimeMillis() + 3600000);
+        routeValues.put(RouteContract.RouteEntry.COLUMN_SHORT_DESC, "low");
+        routeValues.put(RouteContract.RouteEntry.COLUMN_DURATION_ROUTE, 15);
+        routeValues.put(RouteContract.RouteEntry.COLUMN_DISTANCE_ROUTE, 1500);
         routeValues.put(RouteContract.RouteEntry.COLUMN_IMG_URL, "https://www.youtube.com/watch?v=jcwEJKazq0I&index=2&list=RDMMlAzHvsTolQ0");
-        routeValues.put(RouteContract.RouteEntry.COLUMN_CITY_NAME_MEET, TEST_LOCATION_MEET);
-        routeValues.put(RouteContract.RouteEntry.COLUMN_CITY_NAME_INIT, TEST_LOCATION_INIT);
-        routeValues.put(RouteContract.RouteEntry.COLUMN_CITY_NAME_FINAL, TEST_LOCATION_FINAL);
+        routeValues.put(RouteContract.RouteEntry.COLUMN_CITY_NAME_MEET, "puebla de azaba");
+        routeValues.put(RouteContract.RouteEntry.COLUMN_CITY_NAME_INIT, "ituero");
+        routeValues.put(RouteContract.RouteEntry.COLUMN_CITY_NAME_FINAL, "ciudad rodrigo");
         routeValues.put(RouteContract.RouteEntry.COLUMN_COORD_LAT_INIT, -147.353);
         routeValues.put(RouteContract.RouteEntry.COLUMN_COORD_LONG_INIT, 64.7488);
         routeValues.put(RouteContract.RouteEntry.COLUMN_COORD_LAT_FINAL, -146.353);
         routeValues.put(RouteContract.RouteEntry.COLUMN_COORD_LONG_FINAL, 64.7488);
         routeValues.put(RouteContract.RouteEntry.COLUMN_COORD_LAT_MEET, -145.353);
         routeValues.put(RouteContract.RouteEntry.COLUMN_COORD_LONG_MEET, 64.7488);
-
+        routeValues.put(RouteContract.RouteEntry.COLUMN_NAME_ROUTE, "el descenso de roble");
         return routeValues;
 
     }
 
+    public static ContentValues createRouteValuesFuture() {
+
+        // Create a new map of values, where column names are the keys
+        ContentValues routeValues = new ContentValues();
+
+        Random rand = new Random();
+        routeValues.put(RouteContract.RouteEntry._ID, rand.nextInt(10000) );
+        routeValues.put(RouteContract.RouteEntry.COLUMN_DATE, System.currentTimeMillis() + 86400000);
+        routeValues.put(RouteContract.RouteEntry.COLUMN_SHORT_DESC, "high");
+        routeValues.put(RouteContract.RouteEntry.COLUMN_DURATION_ROUTE, 39);
+        routeValues.put(RouteContract.RouteEntry.COLUMN_DISTANCE_ROUTE, 2500);
+        routeValues.put(RouteContract.RouteEntry.COLUMN_IMG_URL, "https://www.youtube.com/watch?v=jcwEJKazq0I&index=2&list=RDMMlAzHvsTolQ0");
+        routeValues.put(RouteContract.RouteEntry.COLUMN_CITY_NAME_MEET, "robledillo de gata");
+        routeValues.put(RouteContract.RouteEntry.COLUMN_CITY_NAME_INIT, "golosa");
+        routeValues.put(RouteContract.RouteEntry.COLUMN_CITY_NAME_FINAL, "La boya");
+        routeValues.put(RouteContract.RouteEntry.COLUMN_COORD_LAT_INIT, -147.353);
+        routeValues.put(RouteContract.RouteEntry.COLUMN_COORD_LONG_INIT, 64.7488);
+        routeValues.put(RouteContract.RouteEntry.COLUMN_COORD_LAT_FINAL, -146.353);
+        routeValues.put(RouteContract.RouteEntry.COLUMN_COORD_LONG_FINAL, 64.7488);
+        routeValues.put(RouteContract.RouteEntry.COLUMN_COORD_LAT_MEET, -145.353);
+        routeValues.put(RouteContract.RouteEntry.COLUMN_COORD_LONG_MEET, 64.7488);
+        routeValues.put(RouteContract.RouteEntry.COLUMN_NAME_ROUTE, "el descenso de roble");
+
+        return routeValues;
+
+    }
     /*
         Students: The functions we provide inside of TestProvider use this utility class to test
         the ContentObserver callbacks using the PollingCheck class that we grabbed from the Android
