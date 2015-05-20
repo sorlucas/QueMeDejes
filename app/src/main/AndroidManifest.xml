@@ -2,9 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.sergio.quemedejes"
+    android:installLocation="auto"
     android:versionCode="223"
-    android:versionName="2.2.3"
-    android:installLocation="auto" >
+    android:versionName="2.2.3" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -26,20 +26,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".ui.WelcomeActivity" android:theme="@style/Theme.IOSched.Welcome" />
+        <activity
+            android:name=".ui.WelcomeActivity"
+            android:theme="@style/Theme.IOSched.Welcome" />
 
         <provider
-            android:authorities="@string/content_authority"
             android:name=".provider.RouteProvider"
+            android:authorities="@string/content_authority"
             android:exported="false"
             android:syncable="true" />
 
         <!-- SyncAdapter's dummy authentication service -->
-        <service android:name=".sync.QuemedejesAuthenticatorService">
+        <service android:name=".sync.QuemedejesAuthenticatorService" >
             <intent-filter>
                 <action android:name="android.accounts.AccountAuthenticator" />
             </intent-filter>
+
             <meta-data
                 android:name="android.accounts.AccountAuthenticator"
                 android:resource="@xml/authenticator" />
@@ -48,19 +50,20 @@
         <!-- The SyncAdapter service -->
         <service
             android:name=".sync.QuemedejesSyncService"
-            android:exported="true"
-            >
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.content.SyncAdapter" />
             </intent-filter>
+
             <meta-data
                 android:name="android.content.SyncAdapter"
                 android:resource="@xml/syncadapter" />
         </service>
 
         <!-- Helper Activity to see database -->
-        <activity android:name=".util.AndroidDatabaseManager"
-            android:theme="@style/Theme.AppCompat.Light"/>
+        <activity
+            android:name=".util.AndroidDatabaseManager"
+            android:theme="@style/Theme.AppCompat.Light" />
     </application>
 
 </manifest>
