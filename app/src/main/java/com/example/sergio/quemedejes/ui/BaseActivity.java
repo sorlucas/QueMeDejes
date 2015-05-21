@@ -46,6 +46,7 @@ import android.widget.Toast;
 import com.example.sergio.quemedejes.BuildConfig;
 import com.example.sergio.quemedejes.Config;
 import com.example.sergio.quemedejes.R;
+import com.example.sergio.quemedejes.confapp.MainActivity;
 import com.example.sergio.quemedejes.sync.QuemedejesSyncAdapter;
 import com.example.sergio.quemedejes.ui.widget.MultiSwipeRefreshLayout;
 import com.example.sergio.quemedejes.ui.widget.ScrimInsetsScrollView;
@@ -683,6 +684,8 @@ public abstract class BaseActivity extends ActionBarActivity implements
                 return true;
 
             case R.id.menu_debug:
+                Intent viewRoutes = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(viewRoutes);
                 return true;
 
             case R.id.menu_refresh:

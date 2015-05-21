@@ -26,6 +26,8 @@
         <activity
             android:name=".ui.WelcomeActivity"
             android:theme="@style/Theme.IOSched.Welcome" />
+        <activity android:name=".confapp.MainActivity"
+            android:theme="@style/Theme.IOSched.SessionDetails"/>
 
         <provider
             android:name=".provider.RouteProvider"
