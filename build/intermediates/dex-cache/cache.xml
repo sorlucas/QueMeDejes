@@ -152,7 +152,7 @@
         jar="/home/sergio/Android/studioProjects/QueMeDejes/backend/build/libs/backend-android-endpoints.jar"
         jumboMode="false"
         revision="22.0.0"
-        sha1="7dca85b946ba39a3f57cf1f5f32f513a5886f18f">
+        sha1="501322f93e989a4a0effa437d74d511e49f9fe30">
         <dex dex="/home/sergio/Android/studioProjects/QueMeDejes/app/build/intermediates/pre-dexed/debug/backend-android-endpoints-8ce7b7d4a96ef7ef877dddc44deee2100d78325e.jar" />
     </item>
     <item
